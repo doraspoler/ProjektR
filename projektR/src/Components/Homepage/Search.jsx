@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Search() {
+function Search({ currentChemCompound }) {
   const [chemCompound, setChemCompound] = useState("");
   const navigate = useNavigate();
   const properties = "IUPACName,CanonicalSMILES,MolecularFormula,MolecularWeight"
+  var placeholder = "Enter chemical compound name";
+  
   async function handleSearch() {
     if (!chemCompound) return;
 
@@ -23,7 +25,14 @@ function Search() {
       console.error("Error fetching molecule data:", error);
       setMoleculeData(null);
     }
+
   }
+
+  useEffect(() => {
+      if(currentChemCompound){
+        placeholder = currentChemCompound;
+      }
+  }, [currentChemCompound]);
 
   function handleCompoundChange(event) {
     setChemCompound(event.target.value);
@@ -36,7 +45,7 @@ function Search() {
           id="search-input"
           value={chemCompound}
           onChange={handleCompoundChange}
-          placeholder="Enter chemical compound name"
+          placeholder={placeholder}
         />
         <button className="search-btn" onClick={handleSearch}>Search</button>
       </div>

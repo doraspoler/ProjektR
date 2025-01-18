@@ -18,13 +18,17 @@ body {
 
 .header {
   position: fixed;
+  height: fit-content;
+  width: 100vw;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
   background-color: rgba(59, 49, 61, 0.718);
-  margin: 0em 0em 0em 0em;
   padding: 0em 1em;
+  margin-right: 1em;
   color: antiquewhite;
   width: 100vw;
 }
@@ -104,13 +108,16 @@ img {
 
 .footer {
   position: fixed;
+  width: 100vw;
+  height: fit-content;
   margin-bottom: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
   background-color: rgba(59, 49, 61, 0.718);
-  margin: 0em 0em 0em 0em;
+  left: 0;
+  bottom: 0;
   padding: 0em 2em;
   color: antiquewhite;
   width: 100vw;
