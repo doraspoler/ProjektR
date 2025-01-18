@@ -1,0 +1,69 @@
+.molecule-view {
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(59, 49, 61, 0.718);
+    border-radius: 10px;
+    padding: 2em;
+    width: 80vw;
+    max-width: 600px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 2em auto;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+    color: rgba(59, 49, 61, 0.9);
+  }
+  
+  .molecule-view h2 {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1em;
+    color: rgba(59, 49, 61, 0.718);
+  }
+  
+  .molecule-view ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .molecule-view li {
+    font-size: 1.2em;
+    margin: 0.5em 0;
+  }
+  
+  .molecule-view li strong {
+    color: rgba(59, 49, 61, 1);
+  }
+  
+  .molecule-view li:first-child {
+    margin-top: 1em;
+  }
+  
+  .molecule-view li:last-child {
+    margin-bottom: 1em;
+  }
+  
+  .molecule-view .highlight {
+    font-weight: bold;
+    color: rgba(236, 90, 101, 0.932);
+  }
+  
+  .molecule-view .additional-info {
+    font-size: 0.9em;
+    color: rgba(59, 49, 61, 0.6);
+    margin-top: 1em;
+    font-style: italic;
+  }
+  
+  .molecule-view .error {
+    color: rgba(236, 90, 101, 0.932);
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1em;
+  }
+
+  .property {
+    margin-left: 5px;
+  }
+  
