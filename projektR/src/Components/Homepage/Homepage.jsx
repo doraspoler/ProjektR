@@ -1,30 +1,22 @@
-import { useState } from 'react'
 import '../../index.css'
+import PropTypes from 'prop-types';
 
 import Search from './Search.jsx';
+import Header from '../Header.jsx';
+import Footer from '../Footer.jsx';
 
 function Homepage() {
 
   return (
     <>
-      <div className="header">
-            <div className="logo">
-                VisiChem
-            </div>
-            <div className="banner">
-                <p>About us</p>
-            </div>
-      </div>
+      <Header/>
       <div className="welcome">
             <h1>VisiChem</h1>
             <p>See and understand molecules like never before</p>
       </div>
-      <Search/>
+      <Search whichComponent="single"/>
       <img src="./molecule.png" alt=""></img>
-      <div className="footer">
-            <p>Made as part of a project for Faculty of electrotechincal engineering and computing, Zagreb university</p>
-            <p>Authors: Milan Vidaković, Dora Špoler, Borna Svjetličić</p>
-      </div>
+      <Footer/>
     </>
   )
 }

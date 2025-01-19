@@ -1,0 +1,11 @@
+.add {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    color: rgba(59, 49, 61, 0.718);
+    background-color: rgb(250, 235, 215, 0.7);
+    padding: 0.5em 0.5em 0.5em 0.5em;
+
+    right: 1em;
+    top: 1em;
+}

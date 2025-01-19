@@ -1,41 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function Search({ currentChemCompound }) {
+
+function Search(props) {
   const [chemCompound, setChemCompound] = useState("");
   const navigate = useNavigate();
-  const properties = "IUPACName,CanonicalSMILES,MolecularFormula,MolecularWeight"
-  var placeholder = "Enter chemical compound name";
-  
+  const params = useParams(); // Get all params dynamically
+
   async function handleSearch() {
-    if (!chemCompound) return;
-
-    const apiUrl = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${chemCompound}/property/${properties}/JSON`;
-
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error("Error fetching data from PubChem API");
-      }
-      const data = await response.json();
-      localStorage.setItem("moleculeData", JSON.stringify(data)); // Spremite podatke u localStorage
-      console.log("Ovo je molecule data u search ", JSON.stringify(data));
-      navigate("/molecule");
-    } catch (error) {
-      console.error("Error fetching molecule data:", error);
-      setMoleculeData(null);
+    console.log("Starting search with props: " + props.whichComponent);
+    if (!chemCompound) {
+      console.log("In handleSearch, chem compound is empty.");
+      return;
     }
 
+    if (props.whichComponent === "single") {
+      navigate(`/molecule/${chemCompound}`); // Navigate using the entered compound
+    } else if (props.whichComponent === "first") {
+      const { secondCompound } = params; // Extract the second compound from params
+      navigate(`/compare/${chemCompound}/${secondCompound}`);
+    } else if (props.whichComponent === "second") {
+      const { firstCompound } = params; // Extract the first compound from params
+      navigate(`/compare/${firstCompound}/${chemCompound}`);
+    } else {
+      console.log("No valid props given: " + props.whichComponent);
+    }
+  
   }
-
-  useEffect(() => {
-      if(currentChemCompound){
-        placeholder = currentChemCompound;
-      }
-  }, [currentChemCompound]);
 
   function handleCompoundChange(event) {
     setChemCompound(event.target.value);
+    console.log("handleCompoundChange " + event.target.value);
   }
 
   return (
@@ -45,7 +40,7 @@ function Search({ currentChemCompound }) {
           id="search-input"
           value={chemCompound}
           onChange={handleCompoundChange}
-          placeholder={placeholder}
+          placeholder={"Enter chemical compound name"}
         />
         <button className="search-btn" onClick={handleSearch}>Search</button>
       </div>
