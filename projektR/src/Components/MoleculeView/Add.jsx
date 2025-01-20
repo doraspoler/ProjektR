@@ -1,5 +1,4 @@
-import Search from '../Homepage/Search.jsx';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import '../Homepage/Search.css'
 //plusic add moze biti kliknut samo ako se vec nalazimo na urlu /molecule/imePrvogSpoja
@@ -10,8 +9,10 @@ function Add() {
     const [secondCompound, setSecondCompound] = useState("");
     const { title } = useParams();
     const firstCompound = title;
+    const navigate = useNavigate();
+    
 
-    function handleAdd(){
+    const handleAdd = () => {
         setClicked(true);
     }
 
@@ -33,16 +34,18 @@ function Add() {
 
     return (
         <div>
-            <h1 className="add" onClick={handleAdd()}>+</h1>
-            <div v-if={clicked == true} className="search-container">
+            <button className="add" onClick={handleAdd}>+</button>
+            {clicked && ( // Conditionally render search input only when clicked is true
+                <div className="search-container">
                 <input
-                id="search-input"
-                value={secondCompound}
-                onChange={handleSecondCompoundChange}
-                placeholder={"Enter chemical compound name"}
+                    id="search-input"
+                    value={secondCompound}
+                    onChange={handleSecondCompoundChange}
+                    placeholder="Enter chemical compound name"
                 />
                 <button className="search-btn" onClick={handleSearch}>Search</button>
-            </div>
+                </div>
+            )}
         </div>
     );
 }

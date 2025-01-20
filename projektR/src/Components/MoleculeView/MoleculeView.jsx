@@ -101,6 +101,7 @@ function MoleculeView() {
   //treba ubacit object add na returna ali trenutno baca gresku
   return (
     <>
+      <Add/>
       <div className="molecule-view">
         <div className="search">
           <Search whichComponent="single"></Search>
