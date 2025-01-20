@@ -6,31 +6,28 @@ import '../MoleculeView/MoleculeView.css';
 import './Compare.css';
 
 function Compare() {
-
-    const { firstCompound } = useParams();
-    const { secondCompound } = useParams();
+    const params = useParams();
+    const firstCompound = params.firstCompound;
+    const secondCompound = params.secondCompound;
+    console.log("First compound: " + firstCompound + ", second compound: " + secondCompound);
 
     const viewerRef1 = useRef(null);
     const [style1, setStyle1] = useState("stick"); // Default stil = stick
-    const [spin1Enabled, setSpin1Enabled] = useState(true); // Defaultno omogućeno okretanje
-    const [spinSpeed1, setSpinSpeed1] = useState(1); // Default brzina okretanja = 10
     const [backgroundColor1, setBackgroundColor1] = useState("#FFFFFF"); //Default background bijel
     
     const viewerRef2 = useRef(null);
     const [style2, setStyle2] = useState("stick"); // Default stil = stick
-    const [spin2Enabled, setSpin2Enabled] = useState(true); // Defaultno omogućeno okretanje
-    const [spinSpeed2, setSpinSpeed2] = useState(1); // Default brzina okretanja = 10
     const [backgroundColor2, setBackgroundColor2] = useState("#FFFFFF"); //Default background bijel
     
     const [firstMoleculeData, setFirstMoleculeData] = useState(null); // Store molecule data
     const [secondMoleculeData, setSecondMoleculeData] = useState(null); // Store molecule data
 
-    const props = "Title,IUPACName,CanonicalSMILES,MolecularFormula,MolecularWeight"
+    const properties = "Title,IUPACName,CanonicalSMILES,MolecularFormula,MolecularWeight"
 
     useEffect(() => {
         const fetchFirstMoleculeData = async () => {
             //dohvaćanje prve molekule
-          const apiUrl1 = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${firstCompound}/property/${props}/JSON`;
+          const apiUrl1 = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${firstCompound}/property/${properties}/JSON`;
           try { 
             const response = await fetch(apiUrl1);
             if (!response.ok) {
@@ -42,26 +39,26 @@ function Compare() {
             setFirstMoleculeData(data1);
           } catch (error) {
             console.error("Error fetching molecule data:", error);
-            setMoleculeData(null);
+            setFirstMoleculeData(null);
           }
         };
     
-        fetchMoleculeData();
+        fetchFirstMoleculeData();
       }, [firstCompound]);
 
       useEffect(() => {
-        const fetchFirstMoleculeData = async () => {
+        const fetchSecondMoleculeData = async () => {
         //dohvaćanje druge molekule
-          const apiUrl2 = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${secondCompound}/property/${props}/JSON`;
+          const apiUrl2 = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${secondCompound}/property/${properties}/JSON`;
           try { 
-            const response = await fetch(apiUrl1);
+            const response = await fetch(apiUrl2);
             if (!response.ok) {
               throw new Error("Error fetching data from PubChem API");
             }
             const data2 = await response.json();
             //console.log("spremam moleculeData u localStorage");
             //localStorage.setItem("moleculeData", JSON.stringify(data)); // Spremite podatke u localStorage
-            setFirstMoleculeData(data2);
+            setSecondMoleculeData(data2);
           } catch (error) {
             console.error("Error fetching molecule data:", error);
             setSecondMoleculeData(null);
@@ -88,9 +85,9 @@ function Compare() {
               }
       
               console.log("Inicijaliziram viewer 1");
-              const viewer1 = window.$3Dmol.createViewer(viewerRef.current, {
+              const viewer1 = window.$3Dmol.createViewer(viewerRef1.current, {
                 defaultcolors: window.$3Dmol.rasmolElementColors,
-                backgroundColor,
+                backgroundColor1,
               });
       
               const cid1 = properties1.CID;
@@ -107,11 +104,6 @@ function Compare() {
                 viewer1.addModel(sdfData1, "sdf");
                 viewer1.setStyle({}, { [style1]: {} });
                 viewer1.zoomTo();
-                if (spin1Enabled) {
-                  viewer1.spin({ axis: "y", speed: spinSpeed1 });
-                } else {
-                  viewer1.spin(false);
-                }
                 viewer1.render();
                 console.log(`Successfully loaded CID ${cid1}`);
               } catch (error) {
@@ -120,7 +112,7 @@ function Compare() {
             }
           };
           load3Dmol1();
-        }, [viewerRef1.current, firstMoleculeData, style1, spin1Enabled, spinSpeed1, backgroundColor1]);
+        }, [firstMoleculeData, style1, backgroundColor1]);
 
         useEffect(() => {
             //dinamicki loadam 3Dmol.js
@@ -134,9 +126,9 @@ function Compare() {
                 }
         
                 console.log("Inicijaliziram viewer 2");
-                const viewer2 = window.$3Dmol.createViewer(viewerRef.current, {
+                const viewer2 = window.$3Dmol.createViewer(viewerRef2.current, {
                   defaultcolors: window.$3Dmol.rasmolElementColors,
-                  backgroundColor,
+                  backgroundColor2,
                 });
         
                 const cid2 = properties2.CID;
@@ -153,11 +145,6 @@ function Compare() {
                   viewer2.addModel(sdfData2, "sdf");
                   viewer2.setStyle({}, { [style2]: {} });
                   viewer2.zoomTo();
-                  if (spin2Enabled) {
-                    viewer2.spin({ axis: "y", speed: spinSpeed2 });
-                  } else {
-                    viewer2.spin(false);
-                  }
                   viewer2.render();
                   console.log(`Successfully loaded CID ${cid2}`);
                 } catch (error) {
@@ -166,7 +153,7 @@ function Compare() {
               }
             };
             load3Dmol2();
-          }, [viewerRef2.current, secondMoleculeData, style2, spin2Enabled, spinSpeed2, backgroundColor2]);
+          }, [secondMoleculeData, style2, backgroundColor2]);
 
 
 
@@ -187,26 +174,6 @@ function Compare() {
                     <option value="sphere">Sphere</option>
                 </select>
                 </label>
-                <label>
-                Spin:
-                <input
-                    type="checkbox"
-                    checked={spin1Enabled}
-                    onChange={(e) => setSpin1Enabled(e.target.checked)}
-                />
-                </label>
-                {spin1Enabled && (
-                <label>
-                    Spin Speed:
-                    <input
-                    type="range"
-                    min="1"
-                    max="50"
-                    value={spinSpeed1}
-                    onChange={(e) => setSpinSpeed1(Number(e.target.value))}
-                    />
-                </label>
-                )}
                 <label>
                 Background Color:
                 <input
@@ -246,26 +213,6 @@ function Compare() {
                     <option value="sphere">Sphere</option>
                 </select>
                 </label>
-                <label>
-                Spin:
-                <input
-                    type="checkbox"
-                    checked={spin2Enabled}
-                    onChange={(e) => setSpin2Enabled(e.target.checked)}
-                />
-                </label>
-                {spin2Enabled && (
-                <label>
-                    Spin Speed:
-                    <input
-                    type="range"
-                    min="1"
-                    max="50"
-                    value={spinSpeed2}
-                    onChange={(e) => setSpinSpeed2(Number(e.target.value))}
-                    />
-                </label>
-                )}
                 <label>
                 Background Color:
                 <input

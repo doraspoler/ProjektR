@@ -3,6 +3,11 @@
     grid-template-columns: 50% 50%;
 }
 
+.molecule-view {
+    width: 85%;
+    min-width: 300px;
+}
+
 .molecule-view #1 {
     grid-row: 1 2;
     grid-column: 1 2;

@@ -4,10 +4,26 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function Search(props) {
   const [chemCompound, setChemCompound] = useState("");
+  const [firstCompound, setFirstCompound] = useState("");
+  const [secondCompound, setSecondCompound] = useState("");
   const navigate = useNavigate();
-  const params = useParams(); // Get all params dynamically
+  const params = useParams();
 
-  async function handleSearch() {
+  useEffect( () => {
+    if(props.whichComponent === "single") {
+      //console.log("params: " + props.whichComponent);
+    } else if (props.whichComponent === "first" || props.whichComponent === "second") {
+      setFirstCompound(params.firstCompound || "");
+      setSecondCompound(params.secondCompound || "");
+      //console.log("params: " + props.whichComponent + ", firstC : " + firstCompound + ", secondC: " + secondCompound);
+  
+    } else {
+      console.log("No valid props given: " + props.whichComponent);
+    }
+  }, [props.whichComponent, params])
+  
+
+  async function handleSearch(event) {
     console.log("Starting search with props: " + props.whichComponent);
     if (!chemCompound) {
       console.log("In handleSearch, chem compound is empty.");
@@ -17,10 +33,8 @@ function Search(props) {
     if (props.whichComponent === "single") {
       navigate(`/molecule/${chemCompound}`); // Navigate using the entered compound
     } else if (props.whichComponent === "first") {
-      const { secondCompound } = params; // Extract the second compound from params
       navigate(`/compare/${chemCompound}/${secondCompound}`);
     } else if (props.whichComponent === "second") {
-      const { firstCompound } = params; // Extract the first compound from params
       navigate(`/compare/${firstCompound}/${chemCompound}`);
     } else {
       console.log("No valid props given: " + props.whichComponent);
@@ -30,7 +44,7 @@ function Search(props) {
 
   function handleCompoundChange(event) {
     setChemCompound(event.target.value);
-    console.log("handleCompoundChange " + event.target.value);
+    //console.log("handleCompoundChange " + event.target.value);
   }
 
   return (

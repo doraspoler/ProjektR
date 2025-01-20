@@ -13,8 +13,8 @@ function MoleculeView() {
   const { title } = useParams();
   const viewerRef = useRef(null);
   const [style, setStyle] = useState("stick"); // Default stil = stick
-  const [spinEnabled, setSpinEnabled] = useState(true); // Defaultno omogućeno okretanje
-  const [spinSpeed, setSpinSpeed] = useState(1); // Default brzina okretanja = 10
+  //const [spinEnabled, setSpinEnabled] = useState(true); // Defaultno omogućeno okretanje
+  //const [spinSpeed, setSpinSpeed] = useState(1); // Default brzina okretanja = 10
   const [backgroundColor, setBackgroundColor] = useState("#FFFFFF"); //Default background bijel
   const [moleculeData, setMoleculeData] = useState(null); // Store molecule data
   
@@ -26,7 +26,9 @@ function MoleculeView() {
       const apiUrl = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${title}/property/${props}/JSON`;
       try { 
         const response = await fetch(apiUrl);
-        if (!response.ok) {
+        if (response.status === "404"){
+          alert('Entered compound ' + title + 'could not be found in database.');
+        } else if(!response.ok) {
           throw new Error("Error fetching data from PubChem API");
         }
         const data = await response.json();
@@ -82,11 +84,13 @@ function MoleculeView() {
           viewer.addModel(sdfData, "sdf");
           viewer.setStyle({}, { [style]: {} });
           viewer.zoomTo();
+          /*
           if (spinEnabled) {
             viewer.spin({ axis: "y", speed: spinSpeed });
           } else {
             viewer.spin(false);
           }
+            */
           viewer.render();
           console.log(`Successfully loaded CID ${cid}`);
         } catch (error) {
@@ -96,7 +100,7 @@ function MoleculeView() {
 
     };
     load3Dmol();
-  }, [moleculeData, style, spinEnabled, spinSpeed, backgroundColor]);
+  }, [moleculeData, style, backgroundColor]); //+spinEnabled, spinSpeed, 
 
   //treba ubacit object add na returna ali trenutno baca gresku
   return (
@@ -117,26 +121,6 @@ function MoleculeView() {
                 <option value="sphere">Sphere</option>
               </select>
             </label>
-            <label>
-              Spin:
-              <input
-                type="checkbox"
-                checked={spinEnabled}
-                onChange={(e) => setSpinEnabled(e.target.checked)}
-              />
-            </label>
-            {spinEnabled && (
-              <label>
-                Spin Speed:
-                <input
-                  type="range"
-                  min="1"
-                  max="50"
-                  value={spinSpeed}
-                  onChange={(e) => setSpinSpeed(Number(e.target.value))}
-                />
-              </label>
-            )}
             <label>
               Background Color:
               <input
@@ -165,3 +149,27 @@ function MoleculeView() {
 }
 
 export default MoleculeView;
+
+
+/*
+            <label>
+              Spin:
+              <input
+                type="checkbox"
+                checked={spinEnabled}
+                onChange={(e) => setSpinEnabled(e.target.checked)}
+              />
+            </label>
+            {spinEnabled && (
+              <label>
+                Spin Speed:
+                <input
+                  type="range"
+                  min="1"
+                  max="50"
+                  value={spinSpeed}
+                  onChange={(e) => setSpinSpeed(Number(e.target.value))}
+                />
+              </label>
+            )}
+*/
