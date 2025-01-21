@@ -4,6 +4,7 @@
 }
 
 .molecule-view {
+    position: relative;
     width: 85%;
     min-width: 300px;
 }
@@ -17,3 +18,32 @@
     grid-row: 1 2;
     grid-column: 2 3;
 }
+
+.molecule-view x-button {
+    float: right;
+}
+
+.molecule-view h2 {
+    margin-right: 40px; /* Povećava razmak ispod naslova */
+}
+
+
+
+
+.x-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ec5a65;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .x-button:hover {
+    background-color: #d94450;
+  }

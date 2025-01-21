@@ -15,7 +15,8 @@
     font-family: 'Courier New', Courier, monospace;
     width: fit-content;
     min-width: 300px;
-    height: 100%;
+    width: 30vw;
+    height: 5vh;
     border-radius: 1em;
     padding: 0.5em 0.5em 0.5em 0.5em;
     font-size: 1em;
