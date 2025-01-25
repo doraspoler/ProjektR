@@ -46,3 +46,7 @@
     cursor: pointer;
     background-color: rgba(59, 49, 61, 1);
   }
+
+#search-option{
+    height: 20px;
+}

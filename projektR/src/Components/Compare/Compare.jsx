@@ -10,6 +10,8 @@ function Compare() {
   const navigate = useNavigate();
   const firstCompound = params.firstCompound;
   const secondCompound = params.secondCompound;
+  const firstSearchOption = params.firstSearchOption;
+  const secondSearchOption = params.secondSearchOption;
   console.log(
     "First compound: " + firstCompound + ", second compound: " + secondCompound
   );
@@ -18,7 +20,12 @@ function Compare() {
     const remainingCompound =
       compoundToRemove === firstCompound ? secondCompound : firstCompound;
 
-    navigate(`/molecule/${remainingCompound}`);
+    const searchOption =
+      compoundToRemove === firstCompound
+        ? secondSearchOption
+        : firstSearchOption;
+
+    navigate(`/molecule/${searchOption}/${remainingCompound}`);
   };
 
   const viewerRef1 = useRef(null);
@@ -38,7 +45,7 @@ function Compare() {
   useEffect(() => {
     const fetchFirstMoleculeData = async () => {
       //dohvaćanje prve molekule
-      const apiUrl1 = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${firstCompound}/property/${properties}/JSON`;
+      const apiUrl1 = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/${firstSearchOption}/${firstCompound}/property/${properties}/JSON`;
       try {
         const response = await fetch(apiUrl1);
         if (!response.ok) {
@@ -60,7 +67,7 @@ function Compare() {
   useEffect(() => {
     const fetchSecondMoleculeData = async () => {
       //dohvaćanje druge molekule
-      const apiUrl2 = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${secondCompound}/property/${properties}/JSON`;
+      const apiUrl2 = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/${secondSearchOption}/${secondCompound}/property/${properties}/JSON`;
       try {
         const response = await fetch(apiUrl2);
         if (!response.ok) {

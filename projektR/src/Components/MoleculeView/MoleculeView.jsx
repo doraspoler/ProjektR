@@ -8,11 +8,9 @@ import Footer from "../Footer.jsx";
 import Add from "./Add.jsx";
 
 function MoleculeView() {
-  const { title } = useParams();
+  const { searchOption: firstSearchOption, chemCompound } = useParams();
   const viewerRef = useRef(null);
   const [style, setStyle] = useState("stick"); // Default stil = stick
-  //const [spinEnabled, setSpinEnabled] = useState(true); // Defaultno omogućeno okretanje
-  //const [spinSpeed, setSpinSpeed] = useState(1); // Default brzina okretanja = 10
   const [backgroundColor, setBackgroundColor] = useState("#FFFFFF"); //Default background bijel
   const [moleculeData, setMoleculeData] = useState(null); // Store molecule data
 
@@ -20,8 +18,10 @@ function MoleculeView() {
     "Title,IUPACName,InChI,InChIKey,MolecularFormula,CanonicalSMILES,IsomericSMILES,MolecularWeight,XLogP,ExactMass,MonoisotopicMass,TPSA";
 
   useEffect(() => {
+    console.log("Ovo je searchOption:  ", firstSearchOption);
+    console.log("Ovo je chemCompound:  ", chemCompound);
     const fetchMoleculeData = async () => {
-      const apiUrl = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${title}/property/${props}/JSON`;
+      const apiUrl = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/${firstSearchOption}/${chemCompound}/property/${props}/JSON`;
       try {
         const response = await fetch(apiUrl);
         if (response.status === "404") {
@@ -42,15 +42,8 @@ function MoleculeView() {
     };
 
     fetchMoleculeData();
-  }, [title]);
+  }, [chemCompound]);
 
-  /*
-  if (!moleculeData || !moleculeData.PropertyTable || !moleculeData.PropertyTable.Properties) {
-    return <p>No molecule data available.</p>;
-  }
-  */
-  //console.log("Ovo je moleculeData u moleculeview " + moleculeData);
-  //console.log("Ovo je moleculeDataPropertyTabel",moleculeData.PropertyTable)
   const properties = moleculeData?.PropertyTable?.Properties?.[0] || {};
 
   useEffect(() => {
@@ -106,7 +99,7 @@ function MoleculeView() {
   //treba ubacit object add na returna ali trenutno baca gresku
   return (
     <>
-      <Add />
+      <Add firstSearchOption={firstSearchOption} firstCompound={chemCompound} />
       <div className="molecule-view">
         <h2>{properties.Title}</h2>
         <div className="search">
@@ -117,6 +110,7 @@ function MoleculeView() {
           <div className="viewer-container">
             <div className="controls">
               <h3>Viewer Controls</h3>
+
               <label>
                 Style:
                 <select

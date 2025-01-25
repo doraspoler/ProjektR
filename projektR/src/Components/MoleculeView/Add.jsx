@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Add.css";
-//plusic add moze biti kliknut samo ako se vec nalazimo na urlu /molecule/imePrvogSpoja
 
-function Add() {
-  const [searrchVisible, setSearchVisible] = useState(false);
+function Add({ firstSearchOption, firstCompound }) {
+  const [searchVisible, setSearchVisible] = useState(false);
   const [minimizeVisible, setMinimizeVisible] = useState(false);
   const [secondCompound, setSecondCompound] = useState("");
-  const { title } = useParams();
-  const firstCompound = title;
+  const [secondSearchOption, setSecondSearchOption] = useState("name"); // Default search option for second compound
+
+  // Parametri iz trenutnog URL-a za prvi spoj
   const navigate = useNavigate();
+  console.log("first compound u add.jsx: ", firstCompound);
+  console.log("first search option: ", firstSearchOption);
 
   const handleAdd = () => {
     setMinimizeVisible(true);
@@ -23,18 +25,27 @@ function Add() {
 
   async function handleSearch(event) {
     if (!secondCompound) {
-      console.log("Second compound not given");
+      console.log("Second compound not provided");
       return;
-    } else if (!firstCompound) {
-      console.log("First compound not given");
     }
 
-    navigate(`/compare/${firstCompound}/${secondCompound}`);
+    if (!firstCompound || !firstSearchOption) {
+      console.log("First compound or search option not provided");
+      return;
+    }
+
+    // Navigacija prema URL-u s atributima oba spoja
+    navigate(
+      `/compare/${firstSearchOption}/${firstCompound}/${secondSearchOption}/${secondCompound}`
+    );
   }
 
   function handleSecondCompoundChange(event) {
     setSecondCompound(event.target.value);
-    console.log("handleCompoundChange " + event.target.value);
+  }
+
+  function handleSecondSearchOptionChange(event) {
+    setSecondSearchOption(event.target.value);
   }
 
   return (
@@ -47,14 +58,29 @@ function Add() {
           -
         </button>
       )}
-      {searrchVisible && ( // Conditionally render search input only when clicked is true
+      {searchVisible && (
         <div className="search-container">
+          <div>
+            <select
+              id="search-option"
+              value={secondSearchOption}
+              onChange={handleSecondSearchOptionChange}
+            >
+              <option value="name">Name</option>
+              <option value="smiles">SMILES</option>
+              <option value="inchi">InChI</option>
+              <option value="cid">CID</option>
+            </select>
+          </div>
+
+          {/* Input za unos drugog spoja */}
           <input
             id="search-input"
             value={secondCompound}
             onChange={handleSecondCompoundChange}
-            placeholder="Enter another chemical compound name"
+            placeholder={`Enter chemical compound ${secondSearchOption}`}
           />
+          {/* Gumb za pretraživanje */}
           <button id="search-btn" onClick={handleSearch}>
             Search
           </button>
