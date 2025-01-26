@@ -25,7 +25,7 @@ function Compare() {
         ? secondSearchOption
         : firstSearchOption;
 
-    navigate(`/molecule/${searchOption}/${remainingCompound}`);
+    navigate(`/molecule/${searchOption}/${encodeURIComponent(remainingCompound)}`);
   };
 
   const viewerRef1 = useRef(null);
@@ -39,15 +39,23 @@ function Compare() {
   const [firstMoleculeData, setFirstMoleculeData] = useState(null); // Store molecule data
   const [secondMoleculeData, setSecondMoleculeData] = useState(null); // Store molecule data
 
-  const properties =
-    "Title,IUPACName,InChI,InChIKey,MolecularFormula,CanonicalSMILES,IsomericSMILES,MolecularWeight,XLogP,ExactMass,MonoisotopicMass,TPSA";
-
   useEffect(() => {
     const fetchFirstMoleculeData = async () => {
       //dohvaćanje prve molekule
-      const apiUrl1 = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/${firstSearchOption}/${firstCompound}/property/${properties}/JSON`;
+      const apiUrl = `http://localhost:5000/search`;
       try {
-        const response = await fetch(apiUrl1);
+        const requestBody = {
+          type: firstSearchOption, 
+          query: encodeURIComponent(firstCompound)
+        };
+    
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        });
         if (!response.ok) {
           throw new Error("Error fetching data from PubChem API");
         }
@@ -67,9 +75,20 @@ function Compare() {
   useEffect(() => {
     const fetchSecondMoleculeData = async () => {
       //dohvaćanje druge molekule
-      const apiUrl2 = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/${secondSearchOption}/${secondCompound}/property/${properties}/JSON`;
+      const apiUrl = `http://localhost:5000/search`;
       try {
-        const response = await fetch(apiUrl2);
+        const requestBody = {
+          type: secondSearchOption, 
+          query: encodeURIComponent(secondCompound)
+        };
+    
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        });
         if (!response.ok) {
           throw new Error("Error fetching data from PubChem API");
         }
@@ -86,13 +105,13 @@ function Compare() {
     fetchSecondMoleculeData();
   }, [secondCompound]);
 
-  const properties1 = firstMoleculeData?.PropertyTable?.Properties?.[0] || {};
-  const properties2 = secondMoleculeData?.PropertyTable?.Properties?.[0] || {};
+  const properties1 = firstMoleculeData || {};
+  const properties2 = secondMoleculeData || {};
 
   useEffect(() => {
     //dinamicki loadam 3Dmol.js
     const load3Dmol1 = async () => {
-      if (viewerRef1.current && firstMoleculeData?.PropertyTable?.Properties) {
+      if (viewerRef1.current && firstMoleculeData) {
         if (!window.$3Dmol) {
           console.error("3Dmol.js library not loaded!");
           return;
@@ -104,7 +123,7 @@ function Compare() {
           backgroundColor1,
         });
 
-        const cid1 = properties1.CID;
+        const cid1 = properties1.cid;
 
         try {
           // Fetch molecular data for the CID
@@ -135,7 +154,7 @@ function Compare() {
   useEffect(() => {
     //dinamicki loadam 3Dmol.js
     const load3Dmol2 = async () => {
-      if (viewerRef2.current && secondMoleculeData?.PropertyTable?.Properties) {
+      if (viewerRef2.current && secondMoleculeData) {
         if (!window.$3Dmol) {
           console.error("3Dmol.js library not loaded!");
           return;
@@ -147,7 +166,7 @@ function Compare() {
           backgroundColor2,
         });
 
-        const cid2 = properties2.CID;
+        const cid2 = properties2.cid;
 
         try {
           // Fetch molecular data for the CID
@@ -187,7 +206,7 @@ function Compare() {
         <div className="search">
           <Search whichComponent="first"></Search>
         </div>
-        <h2>{properties1.Title}</h2>
+        <h2>{properties1.title}</h2>
         <div className="viewer-container1">
           <div className="controls1">
             <h3>Viewer Controls</h3>
@@ -218,7 +237,7 @@ function Compare() {
           <ul>
             <li>
               <strong>Title:</strong>
-              <span className="property">{properties1.Title}</span>
+              <span className="property">{properties1.title}</span>
             </li>
             <li>
               <strong>IUPAC name:</strong>
@@ -226,32 +245,32 @@ function Compare() {
             </li>
             <li>
               <strong>Canonical SMILES:</strong>
-              <span className="property">{properties1.CanonicalSMILES}</span>
+              <span className="property">{properties1.canonicalSMILES}</span>
             </li>
             <li>
               <strong>Isomeric SMILES:</strong>
-              <span className="property">{properties1.IsomericSMILES}</span>
+              <span className="property">{properties1.isomericSMILES}</span>
             </li>
             <li>
               <strong>Molecular formula:</strong>
-              <span className="property">{properties1.MolecularFormula}</span>
+              <span className="property">{properties1.molecularFormula}</span>
             </li>
             <li>
               <strong>XLogP:</strong>
-              <span className="property">{properties1.XLogP}</span>
+              <span className="property">{properties1.logP}</span>
             </li>
             <li>
               <strong>Exact mass:</strong>
-              <span className="property">{properties1.ExactMass}</span>
+              <span className="property">{properties1.exactMass}</span>
             </li>
             <li>
               <strong>TPSA:</strong>
-              <span className="property">{properties1.TPSA}</span>
+              <span className="property">{properties1.polarSurfaceArea}</span>
             </li>
             <li>
               <strong>Molecular weight:</strong>
               <span className="property">
-                {properties1.MolecularWeight + " g/mol" || "N/A"}
+                {properties1.molecularWeight + " g/mol" || "N/A"}
               </span>
             </li>
           </ul>
@@ -268,7 +287,7 @@ function Compare() {
         <div className="search">
           <Search whichComponent="second"></Search>
         </div>
-        <h2>{properties2.Title}</h2>
+        <h2>{properties2.title}</h2>
         <div className="viewer-container2">
           <div className="controls2">
             <h3>Viewer Controls</h3>
@@ -299,7 +318,7 @@ function Compare() {
           <ul>
             <li>
               <strong>Title:</strong>
-              <span className="property">{properties2.Title}</span>
+              <span className="property">{properties2.title}</span>
             </li>
             <li>
               <strong>IUPAC name:</strong>
@@ -307,32 +326,32 @@ function Compare() {
             </li>
             <li>
               <strong>Canonical SMILES:</strong>
-              <span className="property">{properties2.CanonicalSMILES}</span>
+              <span className="property">{properties2.canonicalSMILES}</span>
             </li>
             <li>
               <strong>Isomeric SMILES:</strong>
-              <span className="property">{properties2.IsomericSMILES}</span>
+              <span className="property">{properties2.isomericSMILES}</span>
             </li>
             <li>
               <strong>Molecular formula:</strong>
-              <span className="property">{properties2.MolecularFormula}</span>
+              <span className="property">{properties2.molecularFormula}</span>
             </li>
             <li>
               <strong>XLogP:</strong>
-              <span className="property">{properties2.XLogP}</span>
+              <span className="property">{properties2.logP}</span>
             </li>
             <li>
               <strong>Exact mass:</strong>
-              <span className="property">{properties2.ExactMass}</span>
+              <span className="property">{properties2.exactMass}</span>
             </li>
             <li>
               <strong>TPSA:</strong>
-              <span className="property">{properties2.TPSA}</span>
+              <span className="property">{properties2.polarSurfaceArea}</span>
             </li>
             <li>
               <strong>Molecular weight:</strong>
               <span className="property">
-                {properties2.MolecularWeight + " g/mol" || "N/A"}
+                {properties2.molecularWeight + " g/mol" || "N/A"}
               </span>
             </li>
           </ul>

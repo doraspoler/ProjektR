@@ -3,8 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Search from "../Homepage/Search.jsx";
 import "../Homepage/Search.css";
 import { useParams } from "react-router-dom";
-import Header from "../Header.jsx";
-import Footer from "../Footer.jsx";
 import Add from "./Add.jsx";
 
 function MoleculeView() {
@@ -14,16 +12,24 @@ function MoleculeView() {
   const [backgroundColor, setBackgroundColor] = useState("#FFFFFF"); //Default background bijel
   const [moleculeData, setMoleculeData] = useState(null); // Store molecule data
 
-  const props =
-    "Title,IUPACName,InChI,InChIKey,MolecularFormula,CanonicalSMILES,IsomericSMILES,MolecularWeight,XLogP,ExactMass,MonoisotopicMass,TPSA";
-
   useEffect(() => {
     console.log("Ovo je searchOption:  ", firstSearchOption);
-    console.log("Ovo je chemCompound:  ", chemCompound);
+    console.log("Ovo je chemCompound:  ", encodeURIComponent(chemCompound));
     const fetchMoleculeData = async () => {
-      const apiUrl = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/${firstSearchOption}/${chemCompound}/property/${props}/JSON`;
+      const apiUrl = `http://localhost:5000/search`;
       try {
-        const response = await fetch(apiUrl);
+        const requestBody = {
+          type: firstSearchOption, 
+          query: encodeURIComponent(chemCompound)
+        };
+    
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        });
         if (response.status === "404") {
           alert(
             "Entered compound " + title + "could not be found in database."
@@ -44,12 +50,14 @@ function MoleculeView() {
     fetchMoleculeData();
   }, [chemCompound]);
 
-  const properties = moleculeData?.PropertyTable?.Properties?.[0] || {};
+  console.log(moleculeData)
+  const properties = moleculeData || {};
+  console.log(properties)
 
   useEffect(() => {
     //dinamicki loadam 3Dmol.js
     const load3Dmol = async () => {
-      if (viewerRef.current && moleculeData?.PropertyTable?.Properties) {
+      if (viewerRef.current && moleculeData) {
         if (!window.$3Dmol) {
           console.error("3Dmol.js library not loaded!");
           return;
@@ -61,7 +69,7 @@ function MoleculeView() {
           backgroundColor,
         });
 
-        const cid = properties.CID;
+        const cid = moleculeData.cid;
 
         try {
           // Fetch molecular data for the CID
@@ -101,7 +109,7 @@ function MoleculeView() {
     <>
       <Add firstSearchOption={firstSearchOption} firstCompound={chemCompound} />
       <div className="molecule-view">
-        <h2>{properties.Title}</h2>
+        <h2>{properties.title}</h2>
         <div className="search">
           <Search whichComponent="single"></Search>
         </div>
@@ -138,7 +146,7 @@ function MoleculeView() {
             <ul>
               <li>
                 <strong>Title:</strong>
-                <span className="property">{properties.Title}</span>
+                <span className="property">{properties.title}</span>
               </li>
               <li>
                 <strong>IUPAC name:</strong>
@@ -146,32 +154,32 @@ function MoleculeView() {
               </li>
               <li>
                 <strong>Canonical SMILES:</strong>
-                <span className="property">{properties.CanonicalSMILES}</span>
+                <span className="property">{properties.canonicalSMILES}</span>
               </li>
               <li>
                 <strong>Isomeric SMILES:</strong>
-                <span className="property">{properties.IsomericSMILES}</span>
+                <span className="property">{properties.isomericSMILES}</span>
               </li>
               <li>
                 <strong>Molecular formula:</strong>
-                <span className="property">{properties.MolecularFormula}</span>
+                <span className="property">{properties.molecularFormula}</span>
               </li>
               <li>
                 <strong>XLogP:</strong>
-                <span className="property">{properties.XLogP}</span>
+                <span className="property">{properties.logP}</span>
               </li>
               <li>
                 <strong>Exact mass:</strong>
-                <span className="property">{properties.ExactMass}</span>
+                <span className="property">{properties.exactMass}</span>
               </li>
               <li>
                 <strong>TPSA:</strong>
-                <span className="property">{properties.TPSA}</span>
+                <span className="property">{properties.polarSurfaceArea}</span>
               </li>
               <li>
                 <strong>Molecular weight:</strong>
                 <span className="property">
-                  {properties.MolecularWeight + " g/mol" || "N/A"}
+                  {properties.molecularWeight + " g/mol" || "N/A"}
                 </span>
               </li>
             </ul>
