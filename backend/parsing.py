@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+import numpy as np
 
 class ComputedProperties(BaseModel):
     cid: int
@@ -14,6 +15,20 @@ class ComputedProperties(BaseModel):
     exactMass: float | None
     monoisotopicMass: float | None
     polarSurfaceArea: float | None
+
+class Tox21Properties(BaseModel):
+    AR: float | None
+    ARLBD: float | None
+    AhR: float | None
+    Aromatase: float | None
+    ER: float | None
+    ERLBD: float | None
+    PPARgamma: float | None
+    ARE: float | None
+    ATAD5: float | None
+    HSE: float | None
+    MMP: float | None
+    p53: float | None
 
 def get_computed_properties(data_computed_properties: dict):
     computed_properties = ComputedProperties(
@@ -32,3 +47,20 @@ def get_computed_properties(data_computed_properties: dict):
     polarSurfaceArea = data_computed_properties.get('TPSA') 
     )
     return computed_properties
+
+def get_tox21_properties(data_tox21_properties: np.ndarray):
+    tox21_properties = Tox21Properties(
+        AR = data_tox21_properties[0],
+        ARLBD = data_tox21_properties[1],
+        AhR = data_tox21_properties[2],
+        Aromatase = data_tox21_properties[3],
+        ER = data_tox21_properties[4],
+        ERLBD = data_tox21_properties[5],
+        PPARgamma = data_tox21_properties[6],
+        ARE = data_tox21_properties[7],
+        ATAD5 = data_tox21_properties[8],
+        HSE = data_tox21_properties[9],
+        MMP = data_tox21_properties[10],
+        p53 = data_tox21_properties[11]
+    )
+    return tox21_properties
