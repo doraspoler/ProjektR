@@ -11,6 +11,13 @@ function Search(props) {
   const firstSearchOption = params.firstSearchOption;
   const secondSearchOption = params.secondSearchOption;
 
+  const patterns = {
+    name: "^[a-zA-Z\\s]{3,}$", 
+    smiles: "^([^J][0-9BCOHNSOPrIFla@+\-\[\]\(\)\\\/%=#$]{6,})$/ig", 
+    inchi: "^InChI\=1S?\/[A-Za-z0-9\.]+(\+[0-9]+)?(\/[cnpqbtmsih][A-Za-z0-9\-\+\(\)\,\/\?\;\.]+)*$", 
+    cid: "^[0-9]+$", 
+  };
+
   useEffect(() => {
     if (props.whichComponent === "single") {
       // Do nothing for single search initially
@@ -60,7 +67,7 @@ function Search(props) {
   }
 
   return (
-    <>
+    <form onSubmit={handleSearch}>
       <div className="search-container">
         <select
           id="search-option"
@@ -77,12 +84,14 @@ function Search(props) {
           value={chemCompound}
           onChange={handleCompoundChange}
           placeholder={`Enter chemical compound ${searchOption}`}
+          pattern={patterns[searchOption]} 
+          required 
         />
-        <button className="search-btn" onClick={handleSearch}>
+        <button className="search-btn" type="submit">
           Search
         </button>
       </div>
-    </>
+    </form>
   );
 }
 

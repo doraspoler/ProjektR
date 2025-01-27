@@ -144,45 +144,79 @@ function MoleculeView() {
 
           <div className="properties">
             <h2>Molecule Information</h2>
-            <ul>
-              <li>
-                <strong>Title:</strong>
-                <span className="property">{computed_properties.title}</span>
-              </li>
-              <li>
-                <strong>IUPAC name:</strong>
-                <span className="property">{computed_properties.IUPACName}</span>
-              </li>
-              <li>
-                <strong>Canonical SMILES:</strong>
-                <span className="property">{computed_properties.canonicalSMILES}</span>
-              </li>
-              <li>
-                <strong>Isomeric SMILES:</strong>
-                <span className="property">{computed_properties.isomericSMILES}</span>
-              </li>
-              <li>
-                <strong>Molecular formula:</strong>
-                <span className="property">{computed_properties.molecularFormula}</span>
-              </li>
-              <li>
-                <strong>XLogP:</strong>
-                <span className="property">{computed_properties.logP}</span>
-              </li>
-              <li>
-                <strong>Exact mass:</strong>
-                <span className="property">{computed_properties.exactMass}</span>
-              </li>
-              <li>
-                <strong>TPSA:</strong>
-                <span className="property">{computed_properties.polarSurfaceArea}</span>
-              </li>
-              <li>
-                <strong>Molecular weight:</strong>
-                <span className="property">
-                  {computed_properties.molecularWeight + " g/mol" || "N/A"}
-                </span>
-              </li>
+              <ul>
+              {computed_properties.title && (
+                <li>
+                  <strong>Title:</strong>
+                  <span className="property">{computed_properties.title}</span>
+                </li>
+              )}
+              {computed_properties.cid && (
+                <li>
+                  <strong>CID:</strong>
+                  <span className="property">{computed_properties.cid}</span>
+                </li>
+              )}
+              {computed_properties.IUPACName && (
+                <li>
+                  <strong>IUPAC name:</strong>
+                  <span className="property">{computed_properties.IUPACName}</span>
+                </li>
+              )}
+              {computed_properties.InChi && (
+                <li>
+                  <strong>InChI:</strong>
+                  <span className="property">{computed_properties.InChi}</span>
+                </li>
+              )}
+              {computed_properties.InChiKey && (
+                <li>
+                  <strong>InChIKey:</strong>
+                  <span className="property">{computed_properties.InChiKey}</span>
+                </li>
+              )}
+              {computed_properties.canonicalSMILES && (
+                <li>
+                  <strong>Canonical SMILES:</strong>
+                  <span className="property">{computed_properties.canonicalSMILES}</span>
+                </li>
+              )}
+              {computed_properties.molecularFormula && (
+                <li>
+                  <strong>Molecular formula:</strong>
+                  <span className="property">{computed_properties.molecularFormula}</span>
+                </li>
+              )}
+              {computed_properties.logP && (
+                <li>
+                  <strong>logP:</strong>
+                  <span className="property">{computed_properties.logP}</span>
+                </li>
+              )}
+              {computed_properties.exactMass && (
+                <li>
+                  <strong>Exact mass:</strong>
+                  <span className="property">{computed_properties.exactMass + " Da"}</span>
+                </li>
+              )}
+              {computed_properties.molecularWeight && (
+                <li>
+                  <strong>Molecular weight:</strong>
+                  <span className="property">{computed_properties.molecularWeight + " g/mol"}</span>
+                </li>
+              )}
+              {computed_properties.polarSurfaceArea && (
+                <li>
+                  <strong>TPSA:</strong>
+                  <span className="property">{computed_properties.polarSurfaceArea + " Å²"}</span>
+                </li>
+              )}
+              {solubility && (
+                <li>
+                  <strong>Solubility:</strong>
+                  <span className="property">{solubility + " log(mol/L)"}</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>

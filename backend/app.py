@@ -44,7 +44,7 @@ def search():
         tox21_properties = get_tox21_properties(data_tox21_properties)
         response = {
             "computed_properties": computed_properties.model_dump(),
-            "solubility": solubility[0].item(),
+            "solubility": round(solubility[0].item(), 2),
             "tox21_properties": tox21_properties.model_dump()
         }
         print(response)
