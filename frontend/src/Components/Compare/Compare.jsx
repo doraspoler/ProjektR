@@ -40,6 +40,9 @@ function Compare() {
 
   const [firstMoleculeData, setFirstMoleculeData] = useState(null); // Store molecule data
   const [secondMoleculeData, setSecondMoleculeData] = useState(null); // Store molecule data
+  const handleHomepageButtonClick = () => {
+    navigate("/");
+  };
 
   useEffect(() => {
     const fetchFirstMoleculeData = async () => {
@@ -201,46 +204,50 @@ function Compare() {
   }, [secondMoleculeData, style2, backgroundColor2]);
 
   return (
-    <div className="compare-container">
-      <div className="molecule-view" id="1">
-        <button
-          className="x-button"
-          onClick={() => handleRemove(firstCompound)}
-        >
-          X
-        </button>
-        <div className="search">
-          <Search whichComponent="first"></Search>
-        </div>
-        <h2>{computed_properties1.title}</h2>
-        <div className="viewer-container1">
-          <div className="controls1">
-            <h3>Viewer Controls</h3>
-            <label>
-              Style:
-              <select
-                value={style1}
-                onChange={(e) => setStyle1(e.target.value)}
-              >
-                <option value="stick">Stick</option>
-                <option value="sphere">Sphere</option>
-              </select>
-            </label>
-            <label>
-              Background Color:
-              <input
-                type="color"
-                value={backgroundColor1}
-                onChange={(e) => setBackgroundColor1(e.target.value)}
-              />
-            </label>
+    <>
+      <button className="homepage-button" onClick={handleHomepageButtonClick}>
+        <img src="../../../../public/molecule.png" alt=""></img>
+      </button>
+      <div className="compare-container">
+        <div className="molecule-view" id="1">
+          <button
+            className="x-button"
+            onClick={() => handleRemove(firstCompound)}
+          >
+            X
+          </button>
+          <div className="search">
+            <Search whichComponent="first"></Search>
           </div>
-          <div className="viewer_3Dmoljs" ref={viewerRef1}></div>
-        </div>
+          <h2>{computed_properties1.title}</h2>
+          <div className="viewer-container1">
+            <div className="controls1">
+              <h3>Viewer Controls</h3>
+              <label>
+                Style:
+                <select
+                  value={style1}
+                  onChange={(e) => setStyle1(e.target.value)}
+                >
+                  <option value="stick">Stick</option>
+                  <option value="sphere">Sphere</option>
+                </select>
+              </label>
+              <label>
+                Background Color:
+                <input
+                  type="color"
+                  value={backgroundColor1}
+                  onChange={(e) => setBackgroundColor1(e.target.value)}
+                />
+              </label>
+            </div>
+            <div className="viewer_3Dmoljs" ref={viewerRef1}></div>
+          </div>
 
-        <div className="properties">
-          <h2>Molecule Information</h2>
-          <ul>
+          <div className="properties">
+            <h2>Molecule Information</h2>
+            <ul>
               {computed_properties1.title && (
                 <li>
                   <strong>Title:</strong>
@@ -256,7 +263,9 @@ function Compare() {
               {computed_properties1.IUPACName && (
                 <li>
                   <strong>IUPAC name:</strong>
-                  <span className="property">{computed_properties1.IUPACName}</span>
+                  <span className="property">
+                    {computed_properties1.IUPACName}
+                  </span>
                 </li>
               )}
               {computed_properties1.InChi && (
@@ -268,19 +277,25 @@ function Compare() {
               {computed_properties1.InChiKey && (
                 <li>
                   <strong>InChIKey:</strong>
-                  <span className="property">{computed_properties1.InChiKey}</span>
+                  <span className="property">
+                    {computed_properties1.InChiKey}
+                  </span>
                 </li>
               )}
               {computed_properties1.canonicalSMILES && (
                 <li>
                   <strong>Canonical SMILES:</strong>
-                  <span className="property">{computed_properties1.canonicalSMILES}</span>
+                  <span className="property">
+                    {computed_properties1.canonicalSMILES}
+                  </span>
                 </li>
               )}
               {computed_properties1.molecularFormula && (
                 <li>
                   <strong>Molecular formula:</strong>
-                  <span className="property">{computed_properties1.molecularFormula}</span>
+                  <span className="property">
+                    {computed_properties1.molecularFormula}
+                  </span>
                 </li>
               )}
               {computed_properties1.logP && (
@@ -292,70 +307,91 @@ function Compare() {
               {computed_properties1.exactMass && (
                 <li>
                   <strong>Exact mass:</strong>
-                  <span className="property">{computed_properties1.exactMass + " Da"}</span>
+                  <span className="property">
+                    {computed_properties1.exactMass + " Da"}
+                  </span>
                 </li>
               )}
               {computed_properties1.molecularWeight && (
                 <li>
                   <strong>Molecular weight:</strong>
-                  <span className="property">{computed_properties1.molecularWeight + " g/mol"}</span>
+                  <span className="property">
+                    {computed_properties1.molecularWeight + " g/mol"}
+                  </span>
                 </li>
               )}
               {computed_properties1.polarSurfaceArea && (
                 <li>
                   <strong>TPSA:</strong>
-                  <span className="property">{computed_properties1.polarSurfaceArea + " Å²"}</span>
+                  <span className="property">
+                    {computed_properties1.polarSurfaceArea + " Å²"}
+                  </span>
                 </li>
               )}
               {solubility1 && (
                 <li>
                   <strong>Solubility:</strong>
-                  <span className="property">{solubility1 + " log(mol/L)"}</span>
+                  <span className="property">
+                    {solubility1 + " log(mol/L)"}
+                  </span>
                 </li>
               )}
             </ul>
-        </div>
-      </div>
-
-      <div className="molecule-view" id="2">
-        <button
-          className="x-button"
-          onClick={() => handleRemove(secondCompound)}
-        >
-          X
-        </button>
-        <div className="search">
-          <Search whichComponent="second"></Search>
-        </div>
-        <h2>{computed_properties2.title}</h2>
-        <div className="viewer-container2">
-          <div className="controls2">
-            <h3>Viewer Controls</h3>
-            <label>
-              Style:
-              <select
-                value={style2}
-                onChange={(e) => setStyle2(e.target.value)}
-              >
-                <option value="stick">Stick</option>
-                <option value="sphere">Sphere</option>
-              </select>
-            </label>
-            <label>
-              Background Color:
-              <input
-                type="color"
-                value={backgroundColor2}
-                onChange={(e) => setBackgroundColor2(e.target.value)}
-              />
-            </label>
+            <h3>Tox21 Properties:</h3>
+            <div className="tox21-properties-grid">
+              {Object.entries(tox21_properties1).map(([key, value], index) => (
+                <>
+                  <div className="tox21-property" key={index}>
+                    <strong>{key}:</strong> {value.toFixed(2)}
+                    <div
+                      className={`checkbox ${value > 0.5 ? "checked" : ""}`}
+                    ></div>
+                  </div>
+                </>
+              ))}
+            </div>
           </div>
-          <div className="viewer_3Dmoljs" ref={viewerRef2}></div>
         </div>
 
-        <div className="properties">
-          <h2>Molecule Information</h2>
-          <ul>
+        <div className="molecule-view" id="2">
+          <button
+            className="x-button"
+            onClick={() => handleRemove(secondCompound)}
+          >
+            X
+          </button>
+          <div className="search">
+            <Search whichComponent="second"></Search>
+          </div>
+          <h2>{computed_properties2.title}</h2>
+          <div className="viewer-container2">
+            <div className="controls2">
+              <h3>Viewer Controls</h3>
+              <label>
+                Style:
+                <select
+                  value={style2}
+                  onChange={(e) => setStyle2(e.target.value)}
+                >
+                  <option value="stick">Stick</option>
+                  <option value="sphere">Sphere</option>
+                </select>
+              </label>
+              <label>
+                Background Color:
+                <input
+                  type="color"
+                  value={backgroundColor2}
+                  onChange={(e) => setBackgroundColor2(e.target.value)}
+                />
+              </label>
+            </div>
+            <div className="viewer_3Dmoljs" ref={viewerRef2}></div>
+          </div>
+
+          <div className="properties">
+            <h2>Molecule Information</h2>
+            <ul>
               {computed_properties2.title && (
                 <li>
                   <strong>Title:</strong>
@@ -371,7 +407,9 @@ function Compare() {
               {computed_properties2.IUPACName && (
                 <li>
                   <strong>IUPAC name:</strong>
-                  <span className="property">{computed_properties2.IUPACName}</span>
+                  <span className="property">
+                    {computed_properties2.IUPACName}
+                  </span>
                 </li>
               )}
               {computed_properties2.InChi && (
@@ -383,19 +421,25 @@ function Compare() {
               {computed_properties2.InChiKey && (
                 <li>
                   <strong>InChIKey:</strong>
-                  <span className="property">{computed_properties2.InChiKey}</span>
+                  <span className="property">
+                    {computed_properties2.InChiKey}
+                  </span>
                 </li>
               )}
               {computed_properties2.canonicalSMILES && (
                 <li>
                   <strong>Canonical SMILES:</strong>
-                  <span className="property">{computed_properties2.canonicalSMILES}</span>
+                  <span className="property">
+                    {computed_properties2.canonicalSMILES}
+                  </span>
                 </li>
               )}
               {computed_properties2.molecularFormula && (
                 <li>
                   <strong>Molecular formula:</strong>
-                  <span className="property">{computed_properties2.molecularFormula}</span>
+                  <span className="property">
+                    {computed_properties2.molecularFormula}
+                  </span>
                 </li>
               )}
               {computed_properties2.logP && (
@@ -407,31 +451,53 @@ function Compare() {
               {computed_properties2.exactMass && (
                 <li>
                   <strong>Exact mass:</strong>
-                  <span className="property">{computed_properties2.exactMass + " Da"}</span>
+                  <span className="property">
+                    {computed_properties2.exactMass + " Da"}
+                  </span>
                 </li>
               )}
               {computed_properties2.molecularWeight && (
                 <li>
                   <strong>Molecular weight:</strong>
-                  <span className="property">{computed_properties2.molecularWeight + " g/mol"}</span>
+                  <span className="property">
+                    {computed_properties2.molecularWeight + " g/mol"}
+                  </span>
                 </li>
               )}
               {computed_properties2.polarSurfaceArea && (
                 <li>
                   <strong>TPSA:</strong>
-                  <span className="property">{computed_properties2.polarSurfaceArea + " Å²"}</span>
+                  <span className="property">
+                    {computed_properties2.polarSurfaceArea + " Å²"}
+                  </span>
                 </li>
               )}
               {solubility2 && (
                 <li>
                   <strong>Solubility:</strong>
-                  <span className="property">{solubility2 + " log(mol/L)"}</span>
+                  <span className="property">
+                    {solubility2 + " log(mol/L)"}
+                  </span>
                 </li>
               )}
             </ul>
+            <h3>Tox21 Properties:</h3>
+            <div className="tox21-properties-grid">
+              {Object.entries(tox21_properties2).map(([key, value], index) => (
+                <>
+                  <div className="tox21-property" key={index}>
+                    <strong>{key}:</strong> {value.toFixed(2)}
+                    <div
+                      className={`checkbox ${value > 0.5 ? "checked" : ""}`}
+                    ></div>
+                  </div>
+                </>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

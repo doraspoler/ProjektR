@@ -5,8 +5,8 @@
 
 .molecule-view {
     position: relative;
-    width: 85%;
-    min-width: 300px;
+    width: 92%;
+    max-width: fit-content;
 }
 
 .molecule-view #1 {
@@ -46,4 +46,66 @@
   
   .x-button:hover {
     background-color: #d94450;
+  }
+
+  .tox21-properties-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 stupca */
+    gap: 15px; /* Razmak između stavki */
+    margin-top: 20px;
+  }
+  
+  .tox21-property {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 190px;
+    justify-content: center;
+  }
+  
+  .tox21-property strong {
+    font-weight: bold;
+  }
+  
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: right;
+  }
+  
+  .checkbox.checked {
+    background-color: #4CAF50; /* Zelena pozadina za kvačicu */
+  }
+  
+  .checkbox.checked::before {
+    content: "✔"; /* Kvačica */
+    color: white;
+    font-size: 14px;
+  }
+
+  .homepage-button {
+    position:absolute;
+    top: 10px; /* Malo udaljen od gornjeg ruba */
+    left: 10px; /* Malo udaljen od lijevog ruba */
+    z-index: 1000; /* Pobrinite se da gumb bude ispred drugih elemenata */
+    background-color: transparent; /* Pozadina gumba */
+    border: none; /* Uklonite okvir */
+    cursor: pointer; /* Pokazuje da je klikabilno */
+    height: 60px;
+    width: 60px;
+    border: black solid 1px;
+    background-color: #f5f5f5;
+  }
+  
+  .homepage-button img {
+    width: 40px; /* Veličina slike */
+    height: 40px; /* Veličina slike */
+    top: 10px;
+    left: 10px;
   }

@@ -1,24 +1,21 @@
-import '../../index.css'
-import PropTypes from 'prop-types';
+import "../../index.css";
+import PropTypes from "prop-types";
 
-import Search from './Search.jsx';
-import Header from '../Header.jsx';
-import Footer from '../Footer.jsx';
+import Search from "./Search.jsx";
+import Footer from "../Footer.jsx";
 
 function Homepage() {
-
   return (
     <>
-      <Header/>
       <div className="welcome">
-            <h1>VisiChem</h1>
-            <p>See and understand molecules like never before</p>
+        <h1>VisiChem</h1>
+        <p>See and understand molecules like never before</p>
       </div>
-      <Search whichComponent="single"/>
+      <Search whichComponent="single" />
       <img src="./molecule.png" alt=""></img>
-      <Footer/>
+      <Footer />
     </>
-  )
+  );
 }
 
-export default Homepage
+export default Homepage;
