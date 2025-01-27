@@ -51,13 +51,14 @@ function MoleculeView() {
   }, [chemCompound]);
 
   console.log(moleculeData);
-  const properties = moleculeData || {};
-  console.log(properties);
+  const computed_properties = moleculeData?.computed_properties || {};
+  const solubility = moleculeData?.solubility || {};
+  const tox21_properties = moleculeData?.tox21_properties || {};
 
   useEffect(() => {
     //dinamicki loadam 3Dmol.js
     const load3Dmol = async () => {
-      if (viewerRef.current && moleculeData) {
+      if (viewerRef.current && moleculeData?.computed_properties) {
         if (!window.$3Dmol) {
           console.error("3Dmol.js library not loaded!");
           return;
@@ -69,7 +70,7 @@ function MoleculeView() {
           backgroundColor,
         });
 
-        const cid = moleculeData.cid;
+        const cid = computed_properties.cid;
 
         try {
           // Fetch molecular data for the CID
@@ -109,7 +110,7 @@ function MoleculeView() {
     <>
       <Add firstSearchOption={firstSearchOption} firstCompound={chemCompound} />
       <div className="molecule-view">
-        <h2>{properties.title}</h2>
+        <h2>{computed_properties.title}</h2>
         <div className="search">
           <Search whichComponent="single"></Search>
         </div>
@@ -146,40 +147,40 @@ function MoleculeView() {
             <ul>
               <li>
                 <strong>Title:</strong>
-                <span className="property">{properties.title}</span>
+                <span className="property">{computed_properties.title}</span>
               </li>
               <li>
                 <strong>IUPAC name:</strong>
-                <span className="property">{properties.IUPACName}</span>
+                <span className="property">{computed_properties.IUPACName}</span>
               </li>
               <li>
                 <strong>Canonical SMILES:</strong>
-                <span className="property">{properties.canonicalSMILES}</span>
+                <span className="property">{computed_properties.canonicalSMILES}</span>
               </li>
               <li>
                 <strong>Isomeric SMILES:</strong>
-                <span className="property">{properties.isomericSMILES}</span>
+                <span className="property">{computed_properties.isomericSMILES}</span>
               </li>
               <li>
                 <strong>Molecular formula:</strong>
-                <span className="property">{properties.molecularFormula}</span>
+                <span className="property">{computed_properties.molecularFormula}</span>
               </li>
               <li>
                 <strong>XLogP:</strong>
-                <span className="property">{properties.logP}</span>
+                <span className="property">{computed_properties.logP}</span>
               </li>
               <li>
                 <strong>Exact mass:</strong>
-                <span className="property">{properties.exactMass}</span>
+                <span className="property">{computed_properties.exactMass}</span>
               </li>
               <li>
                 <strong>TPSA:</strong>
-                <span className="property">{properties.polarSurfaceArea}</span>
+                <span className="property">{computed_properties.polarSurfaceArea}</span>
               </li>
               <li>
                 <strong>Molecular weight:</strong>
                 <span className="property">
-                  {properties.molecularWeight + " g/mol" || "N/A"}
+                  {computed_properties.molecularWeight + " g/mol" || "N/A"}
                 </span>
               </li>
             </ul>

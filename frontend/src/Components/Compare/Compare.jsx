@@ -107,8 +107,12 @@ function Compare() {
     fetchSecondMoleculeData();
   }, [secondCompound]);
 
-  const properties1 = firstMoleculeData || {};
-  const properties2 = secondMoleculeData || {};
+  const computed_properties1 = firstMoleculeData?.computed_properties || {};
+  const computed_properties2 = secondMoleculeData?.computed_properties || {};
+  const solubility1 = firstMoleculeData?.solubility || {};
+  const solubility2 = secondMoleculeData?.solubility || {};
+  const tox21_properties1 = firstMoleculeData?.tox21_properties || {};
+  const tox21_properties2 = secondMoleculeData?.tox21_properties || {};
 
   useEffect(() => {
     //dinamicki loadam 3Dmol.js
@@ -125,7 +129,7 @@ function Compare() {
           backgroundColor1,
         });
 
-        const cid1 = properties1.cid;
+        const cid1 = computed_properties1.cid;
 
         try {
           // Fetch molecular data for the CID
@@ -168,7 +172,7 @@ function Compare() {
           backgroundColor2,
         });
 
-        const cid2 = properties2.cid;
+        const cid2 = computed_properties2.cid;
 
         try {
           // Fetch molecular data for the CID
@@ -208,7 +212,7 @@ function Compare() {
         <div className="search">
           <Search whichComponent="first"></Search>
         </div>
-        <h2>{properties1.title}</h2>
+        <h2>{computed_properties1.title}</h2>
         <div className="viewer-container1">
           <div className="controls1">
             <h3>Viewer Controls</h3>
@@ -239,40 +243,40 @@ function Compare() {
           <ul>
             <li>
               <strong>Title:</strong>
-              <span className="property">{properties1.title}</span>
+              <span className="property">{computed_properties1.title}</span>
             </li>
             <li>
               <strong>IUPAC name:</strong>
-              <span className="property">{properties1.IUPACName}</span>
+              <span className="property">{computed_properties1.IUPACName}</span>
             </li>
             <li>
               <strong>Canonical SMILES:</strong>
-              <span className="property">{properties1.canonicalSMILES}</span>
+              <span className="property">{computed_properties1.canonicalSMILES}</span>
             </li>
             <li>
               <strong>Isomeric SMILES:</strong>
-              <span className="property">{properties1.isomericSMILES}</span>
+              <span className="property">{computed_properties1.isomericSMILES}</span>
             </li>
             <li>
               <strong>Molecular formula:</strong>
-              <span className="property">{properties1.molecularFormula}</span>
+              <span className="property">{computed_properties1.molecularFormula}</span>
             </li>
             <li>
               <strong>XLogP:</strong>
-              <span className="property">{properties1.logP}</span>
+              <span className="property">{computed_properties1.logP}</span>
             </li>
             <li>
               <strong>Exact mass:</strong>
-              <span className="property">{properties1.exactMass}</span>
+              <span className="property">{computed_properties1.exactMass}</span>
             </li>
             <li>
               <strong>TPSA:</strong>
-              <span className="property">{properties1.polarSurfaceArea}</span>
+              <span className="property">{computed_properties1.polarSurfaceArea}</span>
             </li>
             <li>
               <strong>Molecular weight:</strong>
               <span className="property">
-                {properties1.molecularWeight + " g/mol" || "N/A"}
+                {computed_properties1.molecularWeight + " g/mol" || "N/A"}
               </span>
             </li>
           </ul>
@@ -289,7 +293,7 @@ function Compare() {
         <div className="search">
           <Search whichComponent="second"></Search>
         </div>
-        <h2>{properties2.title}</h2>
+        <h2>{computed_properties2.title}</h2>
         <div className="viewer-container2">
           <div className="controls2">
             <h3>Viewer Controls</h3>
@@ -320,40 +324,40 @@ function Compare() {
           <ul>
             <li>
               <strong>Title:</strong>
-              <span className="property">{properties2.title}</span>
+              <span className="property">{computed_properties2.title}</span>
             </li>
             <li>
               <strong>IUPAC name:</strong>
-              <span className="property">{properties2.IUPACName}</span>
+              <span className="property">{computed_properties2.IUPACName}</span>
             </li>
             <li>
               <strong>Canonical SMILES:</strong>
-              <span className="property">{properties2.canonicalSMILES}</span>
+              <span className="property">{computed_properties2.canonicalSMILES}</span>
             </li>
             <li>
               <strong>Isomeric SMILES:</strong>
-              <span className="property">{properties2.isomericSMILES}</span>
+              <span className="property">{computed_properties2.isomericSMILES}</span>
             </li>
             <li>
               <strong>Molecular formula:</strong>
-              <span className="property">{properties2.molecularFormula}</span>
+              <span className="property">{computed_properties2.molecularFormula}</span>
             </li>
             <li>
               <strong>XLogP:</strong>
-              <span className="property">{properties2.logP}</span>
+              <span className="property">{computed_properties2.logP}</span>
             </li>
             <li>
               <strong>Exact mass:</strong>
-              <span className="property">{properties2.exactMass}</span>
+              <span className="property">{computed_properties2.exactMass}</span>
             </li>
             <li>
               <strong>TPSA:</strong>
-              <span className="property">{properties2.polarSurfaceArea}</span>
+              <span className="property">{computed_properties2.polarSurfaceArea}</span>
             </li>
             <li>
               <strong>Molecular weight:</strong>
               <span className="property">
-                {properties2.molecularWeight + " g/mol" || "N/A"}
+                {computed_properties2.molecularWeight + " g/mol" || "N/A"}
               </span>
             </li>
           </ul>

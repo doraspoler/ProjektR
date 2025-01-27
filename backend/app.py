@@ -28,10 +28,10 @@ def fetch_data_by_type(search_type, query):
     response.raise_for_status()
     return response.json()
 
-@app.route("/search", methods=["GET"])
+@app.route("/search", methods=["POST"])
 def search():
-    search_type = request.args.get("type")
-    query = request.args.get("query")
+    search_type = request.json.get("type")
+    query = request.json.get("query")
     print(f"query: {query}, search_type: {search_type}")
     if not search_type or not query:
         return jsonify({"error": "Both 'type' and 'query' parameters are required"})
