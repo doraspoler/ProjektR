@@ -25,7 +25,9 @@ function Compare() {
         ? secondSearchOption
         : firstSearchOption;
 
-    navigate(`/molecule/${searchOption}/${encodeURIComponent(remainingCompound)}`);
+    navigate(
+      `/molecule/${searchOption}/${encodeURIComponent(remainingCompound)}`
+    );
   };
 
   const viewerRef1 = useRef(null);
@@ -45,10 +47,10 @@ function Compare() {
       const apiUrl = `http://localhost:5000/search`;
       try {
         const requestBody = {
-          type: firstSearchOption, 
-          query: encodeURIComponent(firstCompound)
+          type: firstSearchOption,
+          query: encodeURIComponent(firstCompound),
         };
-    
+
         const response = await fetch(apiUrl, {
           method: "POST",
           headers: {
@@ -78,10 +80,10 @@ function Compare() {
       const apiUrl = `http://localhost:5000/search`;
       try {
         const requestBody = {
-          type: secondSearchOption, 
-          query: encodeURIComponent(secondCompound)
+          type: secondSearchOption,
+          query: encodeURIComponent(secondCompound),
         };
-    
+
         const response = await fetch(apiUrl, {
           method: "POST",
           headers: {

@@ -36,7 +36,9 @@ function Add({ firstSearchOption, firstCompound }) {
 
     // Navigacija prema URL-u s atributima oba spoja
     navigate(
-      `/compare/${firstSearchOption}/${encodeURIComponent(firstCompound)}/${secondSearchOption}/${encodeURIComponent(secondCompound)}`
+      `/compare/${firstSearchOption}/${encodeURIComponent(
+        firstCompound
+      )}/${secondSearchOption}/${encodeURIComponent(secondCompound)}`
     );
   }
 

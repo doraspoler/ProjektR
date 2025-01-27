@@ -8,6 +8,8 @@ function Search(props) {
   const [secondCompound, setSecondCompound] = useState("");
   const navigate = useNavigate();
   const params = useParams();
+  const firstSearchOption = params.firstSearchOption;
+  const secondSearchOption = params.secondSearchOption;
 
   useEffect(() => {
     if (props.whichComponent === "single") {
@@ -33,9 +35,17 @@ function Search(props) {
     if (props.whichComponent === "single") {
       navigate(`/molecule/${searchOption}/${encodeURIComponent(chemCompound)}`); // Navigate using the resolved compound title
     } else if (props.whichComponent === "first") {
-      navigate(`/compare/${encodeURIComponent(chemCompound)}/${encodeURIComponent(secondCompound)}`);
+      navigate(
+        `/compare/${searchOption}/${encodeURIComponent(
+          chemCompound
+        )}/${secondSearchOption}/${encodeURIComponent(secondCompound)}`
+      );
     } else if (props.whichComponent === "second") {
-      navigate(`/compare/${encodeURIComponent(firstCompound)}/${encodeURIComponent(chemCompound)}`);
+      navigate(
+        `/compare/${firstSearchOption}/${encodeURIComponent(
+          firstCompound
+        )}/${searchOption}/${encodeURIComponent(chemCompound)}`
+      );
     } else {
       console.log("No valid props given: " + props.whichComponent);
     }

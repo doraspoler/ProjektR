@@ -19,10 +19,10 @@ function MoleculeView() {
       const apiUrl = `http://localhost:5000/search`;
       try {
         const requestBody = {
-          type: firstSearchOption, 
-          query: encodeURIComponent(chemCompound)
+          type: firstSearchOption,
+          query: encodeURIComponent(chemCompound),
         };
-    
+
         const response = await fetch(apiUrl, {
           method: "POST",
           headers: {
@@ -50,9 +50,9 @@ function MoleculeView() {
     fetchMoleculeData();
   }, [chemCompound]);
 
-  console.log(moleculeData)
+  console.log(moleculeData);
   const properties = moleculeData || {};
-  console.log(properties)
+  console.log(properties);
 
   useEffect(() => {
     //dinamicki loadam 3Dmol.js
