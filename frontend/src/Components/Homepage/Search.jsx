@@ -12,7 +12,7 @@ function Search(props) {
   const secondSearchOption = params.secondSearchOption;
 
   const patterns = {
-    name: "^[a-zA-Z\\s]{3,}$", 
+    name: "^[a-zA-Z0-9\\s\\-(),\\.·'/\\+]+$", 
     smiles: "^([^J][0-9BCOHNSOPrIFla@+\-\[\]\(\)\\\/%=#$]{6,})$/ig", 
     inchi: "^InChI\=1S?\/[A-Za-z0-9\.]+(\+[0-9]+)?(\/[cnpqbtmsih][A-Za-z0-9\-\+\(\)\,\/\?\;\.]+)*$", 
     cid: "^[0-9]+$", 

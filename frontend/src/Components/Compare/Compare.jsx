@@ -248,19 +248,19 @@ function Compare() {
           <div className="properties">
             <h2>Molecule Information</h2>
             <ul>
-              {computed_properties1.title && (
+              {computed_properties1.title != null && (
                 <li>
                   <strong>Title:</strong>
                   <span className="property">{computed_properties1.title}</span>
                 </li>
               )}
-              {computed_properties1.cid && (
+              {computed_properties1.cid != null && (
                 <li>
                   <strong>CID:</strong>
                   <span className="property">{computed_properties1.cid}</span>
                 </li>
               )}
-              {computed_properties1.IUPACName && (
+              {computed_properties1.IUPACName != null && (
                 <li>
                   <strong>IUPAC name:</strong>
                   <span className="property">
@@ -268,13 +268,13 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties1.InChi && (
+              {computed_properties1.InChi != null && (
                 <li>
                   <strong>InChI:</strong>
                   <span className="property">{computed_properties1.InChi}</span>
                 </li>
               )}
-              {computed_properties1.InChiKey && (
+              {computed_properties1.InChiKey != null && (
                 <li>
                   <strong>InChIKey:</strong>
                   <span className="property">
@@ -282,7 +282,7 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties1.canonicalSMILES && (
+              {computed_properties1.canonicalSMILES != null && (
                 <li>
                   <strong>Canonical SMILES:</strong>
                   <span className="property">
@@ -290,7 +290,7 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties1.molecularFormula && (
+              {computed_properties1.molecularFormula != null && (
                 <li>
                   <strong>Molecular formula:</strong>
                   <span className="property">
@@ -298,13 +298,13 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties1.logP && (
+              {computed_properties1.logP != null && (
                 <li>
                   <strong>logP:</strong>
                   <span className="property">{computed_properties1.logP}</span>
                 </li>
               )}
-              {computed_properties1.exactMass && (
+              {computed_properties1.exactMass != null && (
                 <li>
                   <strong>Exact mass:</strong>
                   <span className="property">
@@ -312,7 +312,7 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties1.molecularWeight && (
+              {computed_properties1.molecularWeight != null && (
                 <li>
                   <strong>Molecular weight:</strong>
                   <span className="property">
@@ -320,7 +320,7 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties1.polarSurfaceArea && (
+              {computed_properties1.polarSurfaceArea != null && (
                 <li>
                   <strong>TPSA:</strong>
                   <span className="property">
@@ -328,7 +328,7 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {solubility1 && (
+              {solubility1 != null && (
                 <li>
                   <strong>Solubility:</strong>
                   <span className="property">
@@ -392,19 +392,19 @@ function Compare() {
           <div className="properties">
             <h2>Molecule Information</h2>
             <ul>
-              {computed_properties2.title && (
+              {computed_properties2.title != null && (
                 <li>
                   <strong>Title:</strong>
                   <span className="property">{computed_properties2.title}</span>
                 </li>
               )}
-              {computed_properties2.cid && (
+              {computed_properties2.cid != null && (
                 <li>
                   <strong>CID:</strong>
                   <span className="property">{computed_properties2.cid}</span>
                 </li>
               )}
-              {computed_properties2.IUPACName && (
+              {computed_properties2.IUPACName != null && (
                 <li>
                   <strong>IUPAC name:</strong>
                   <span className="property">
@@ -412,13 +412,13 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties2.InChi && (
+              {computed_properties2.InChi != null && (
                 <li>
                   <strong>InChI:</strong>
                   <span className="property">{computed_properties2.InChi}</span>
                 </li>
               )}
-              {computed_properties2.InChiKey && (
+              {computed_properties2.InChiKey != null && (
                 <li>
                   <strong>InChIKey:</strong>
                   <span className="property">
@@ -426,7 +426,7 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties2.canonicalSMILES && (
+              {computed_properties2.canonicalSMILES != null && (
                 <li>
                   <strong>Canonical SMILES:</strong>
                   <span className="property">
@@ -434,7 +434,7 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties2.molecularFormula && (
+              {computed_properties2.molecularFormula != null && (
                 <li>
                   <strong>Molecular formula:</strong>
                   <span className="property">
@@ -442,13 +442,13 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties2.logP && (
+              {computed_properties2.logP != null && (
                 <li>
                   <strong>logP:</strong>
                   <span className="property">{computed_properties2.logP}</span>
                 </li>
               )}
-              {computed_properties2.exactMass && (
+              {computed_properties2.exactMass != null && (
                 <li>
                   <strong>Exact mass:</strong>
                   <span className="property">
@@ -456,7 +456,7 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties2.molecularWeight && (
+              {computed_properties2.molecularWeight != null && (
                 <li>
                   <strong>Molecular weight:</strong>
                   <span className="property">
@@ -464,7 +464,7 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {computed_properties2.polarSurfaceArea && (
+              {computed_properties2.polarSurfaceArea != null && (
                 <li>
                   <strong>TPSA:</strong>
                   <span className="property">
@@ -472,7 +472,7 @@ function Compare() {
                   </span>
                 </li>
               )}
-              {solubility2 && (
+              {solubility2 != null && (
                 <li>
                   <strong>Solubility:</strong>
                   <span className="property">
