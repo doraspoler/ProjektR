@@ -45,7 +45,7 @@ def search():
         response = {
             "computed_properties": computed_properties.model_dump(),
             "solubility": round(solubility[0].item(), 2),
-            "tox21_properties": tox21_properties.model_dump()
+            "tox21_properties": tox21_properties.model_dump(by_alias=True)
         }
         print(response)
         return jsonify(response)

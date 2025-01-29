@@ -125,7 +125,6 @@ function MoleculeView() {
             <div className="viewer_3Dmoljs" ref={viewerRef}></div>
             <div className="controls">
               <label>
-                Style:
                 <select
                   value={style}
                   onChange={(e) => setStyle(e.target.value)}
@@ -184,7 +183,7 @@ function MoleculeView() {
               )}
               {computed_properties.molecularFormula != null && (
                 <li>
-                  <strong>Molecular formula:</strong>
+                  <strong>Molecular Formula:</strong>
                   <span className="property">
                     {computed_properties.molecularFormula}
                   </span>
@@ -198,7 +197,7 @@ function MoleculeView() {
               )}
               {computed_properties.exactMass != null && (
                 <li>
-                  <strong>Exact mass:</strong>
+                  <strong>Exact Mass:</strong>
                   <span className="property">
                     {computed_properties.exactMass + " Da"}
                   </span>
@@ -206,7 +205,7 @@ function MoleculeView() {
               )}
               {computed_properties.molecularWeight != null && (
                 <li>
-                  <strong>Molecular weight:</strong>
+                  <strong>Molecular Weight:</strong>
                   <span className="property">
                     {computed_properties.molecularWeight + " g/mol"}
                   </span>

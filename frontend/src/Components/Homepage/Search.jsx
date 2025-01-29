@@ -18,6 +18,13 @@ function Search(props) {
     cid: "^[0-9]+$", 
   };
 
+  const searchPrompts = {
+    name: "Enter chemical compound name", 
+    smiles: "Enter chemical structure in SMILES format",
+    inchi: "Enter chemical structure in InChI format",
+    cid: "Enter PubChem compound ID",
+  }
+
   useEffect(() => {
     if (props.whichComponent === "single") {
       // Do nothing for single search initially
@@ -83,7 +90,7 @@ function Search(props) {
           id="search-input"
           value={chemCompound}
           onChange={handleCompoundChange}
-          placeholder={`Enter chemical compound ${searchOption}`}
+          placeholder={searchPrompts[searchOption]}
           pattern={patterns[searchOption]} 
           required 
         />

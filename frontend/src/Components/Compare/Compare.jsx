@@ -220,7 +220,6 @@ function Compare() {
             <div className="viewer_3Dmoljs" ref={viewerRef1}></div>
             <div className="controls1">
               <label>
-                Style:
                 <select
                   value={style1}
                   onChange={(e) => setStyle1(e.target.value)}
@@ -279,7 +278,7 @@ function Compare() {
               )}
               {computed_properties1.molecularFormula != null && (
                 <li>
-                  <strong>Molecular formula:</strong>
+                  <strong>Molecular Formula:</strong>
                   <span className="property">
                     {computed_properties1.molecularFormula}
                   </span>
@@ -293,7 +292,7 @@ function Compare() {
               )}
               {computed_properties1.exactMass != null && (
                 <li>
-                  <strong>Exact mass:</strong>
+                  <strong>Exact Mass:</strong>
                   <span className="property">
                     {computed_properties1.exactMass + " Da"}
                   </span>
@@ -301,7 +300,7 @@ function Compare() {
               )}
               {computed_properties1.molecularWeight != null && (
                 <li>
-                  <strong>Molecular weight:</strong>
+                  <strong>Molecular Weight:</strong>
                   <span className="property">
                     {computed_properties1.molecularWeight + " g/mol"}
                   </span>
@@ -355,7 +354,6 @@ function Compare() {
             <div className="viewer_3Dmoljs" ref={viewerRef2}></div>
             <div className="controls2">
               <label>
-                Style:
                 <select
                   value={style2}
                   onChange={(e) => setStyle2(e.target.value)}
@@ -414,7 +412,7 @@ function Compare() {
               )}
               {computed_properties2.molecularFormula != null && (
                 <li>
-                  <strong>Molecular formula:</strong>
+                  <strong>Molecular Formula:</strong>
                   <span className="property">
                     {computed_properties2.molecularFormula}
                   </span>
@@ -428,7 +426,7 @@ function Compare() {
               )}
               {computed_properties2.exactMass != null && (
                 <li>
-                  <strong>Exact mass:</strong>
+                  <strong>Exact Mass:</strong>
                   <span className="property">
                     {computed_properties2.exactMass + " Da"}
                   </span>
@@ -436,7 +434,7 @@ function Compare() {
               )}
               {computed_properties2.molecularWeight != null && (
                 <li>
-                  <strong>Molecular weight:</strong>
+                  <strong>Molecular Weight:</strong>
                   <span className="property">
                     {computed_properties2.molecularWeight + " g/mol"}
                   </span>

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import numpy as np
 
 class ComputedProperties(BaseModel):
@@ -18,17 +18,22 @@ class ComputedProperties(BaseModel):
 
 class Tox21Properties(BaseModel):
     AR: float | None
-    ARLBD: float | None
+    ARLBD: float | None = Field(None, alias = "AR-LBD")
     AhR: float | None
     Aromatase: float | None
     ER: float | None
-    ERLBD: float | None
-    PPARgamma: float | None
+    ERLBD: float | None = Field(None, alias = "ER-LBD")
+    PPARgamma: float | None = Field(None, alias = "PPAR-γ")
     ARE: float | None
     ATAD5: float | None
     HSE: float | None
     MMP: float | None
     p53: float | None
+
+    class Config:
+        populate_by_name = True
+        alias_generator = None   
+        allow_population_by_field_name = True
 
 def get_computed_properties(data_computed_properties: dict):
     computed_properties = ComputedProperties(
