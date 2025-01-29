@@ -202,7 +202,7 @@ function Compare() {
   return (
     <>
       <button className="homepage-button" onClick={handleHomepageButtonClick}>
-        <img src="../../../../public/molecule.png" alt=""></img>
+        <img src="../../../../molecule.png" alt=""></img>
       </button>
       <div className="compare-container">
         <div className="molecule-view" id="1">

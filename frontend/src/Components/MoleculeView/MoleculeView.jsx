@@ -112,7 +112,7 @@ function MoleculeView() {
   return (
     <>
       <button className="homepage-button" onClick={handleHomepageButtonClick}>
-        <img src="../../../public/molecule.png" alt=""></img>
+        <img src="../../../molecule.png" alt=""></img>
       </button>
       <Add firstSearchOption={firstSearchOption} firstCompound={chemCompound} />
       <div className="molecule-view">

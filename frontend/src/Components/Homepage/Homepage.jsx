@@ -1,6 +1,4 @@
 import "../../index.css";
-import PropTypes from "prop-types";
-
 import Search from "./Search.jsx";
 import Footer from "../Footer.jsx";
 
