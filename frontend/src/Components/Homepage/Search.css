@@ -50,9 +50,13 @@
     color: #fff;
     background-color:rgba(59, 49, 61, 0.718);
     border-radius: 5px;
-    cursor: pointer;
     font-family: 'Courier New', Courier, monospace;
     font-size: 1em;
     font-weight: 700;
+    cursor: pointer;
     border:0.1em solid black;
+  }
+
+  select option:hover {
+    cursor: pointer;
   }

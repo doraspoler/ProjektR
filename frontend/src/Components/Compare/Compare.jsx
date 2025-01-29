@@ -32,11 +32,9 @@ function Compare() {
 
   const viewerRef1 = useRef(null);
   const [style1, setStyle1] = useState("stick"); // Default stil = stick
-  const [backgroundColor1, setBackgroundColor1] = useState("#FFFFFF"); //Default background bijel
 
   const viewerRef2 = useRef(null);
   const [style2, setStyle2] = useState("stick"); // Default stil = stick
-  const [backgroundColor2, setBackgroundColor2] = useState("#FFFFFF"); //Default background bijel
 
   const [firstMoleculeData, setFirstMoleculeData] = useState(null); // Store molecule data
   const [secondMoleculeData, setSecondMoleculeData] = useState(null); // Store molecule data
@@ -128,8 +126,7 @@ function Compare() {
 
         console.log("Inicijaliziram viewer 1");
         const viewer1 = window.$3Dmol.createViewer(viewerRef1.current, {
-          defaultcolors: window.$3Dmol.rasmolElementColors,
-          backgroundColor1,
+          defaultcolors: window.$3Dmol.rasmolElementColors
         });
 
         const cid1 = computed_properties1.cid;
@@ -158,7 +155,7 @@ function Compare() {
       }
     };
     load3Dmol1();
-  }, [firstMoleculeData, style1, backgroundColor1]);
+  }, [firstMoleculeData, style1]);
 
   useEffect(() => {
     //dinamicki loadam 3Dmol.js
@@ -171,8 +168,7 @@ function Compare() {
 
         console.log("Inicijaliziram viewer 2");
         const viewer2 = window.$3Dmol.createViewer(viewerRef2.current, {
-          defaultcolors: window.$3Dmol.rasmolElementColors,
-          backgroundColor2,
+          defaultcolors: window.$3Dmol.rasmolElementColors
         });
 
         const cid2 = computed_properties2.cid;
@@ -201,7 +197,7 @@ function Compare() {
       }
     };
     load3Dmol2();
-  }, [secondMoleculeData, style2, backgroundColor2]);
+  }, [secondMoleculeData, style2]);
 
   return (
     <>
@@ -221,8 +217,8 @@ function Compare() {
           </div>
           <h2>{computed_properties1.title}</h2>
           <div className="viewer-container1">
+            <div className="viewer_3Dmoljs" ref={viewerRef1}></div>
             <div className="controls1">
-              <h3>Viewer Controls</h3>
               <label>
                 Style:
                 <select
@@ -233,16 +229,7 @@ function Compare() {
                   <option value="sphere">Sphere</option>
                 </select>
               </label>
-              <label>
-                Background Color:
-                <input
-                  type="color"
-                  value={backgroundColor1}
-                  onChange={(e) => setBackgroundColor1(e.target.value)}
-                />
-              </label>
             </div>
-            <div className="viewer_3Dmoljs" ref={viewerRef1}></div>
           </div>
 
           <div className="properties">
@@ -365,8 +352,8 @@ function Compare() {
           </div>
           <h2>{computed_properties2.title}</h2>
           <div className="viewer-container2">
+            <div className="viewer_3Dmoljs" ref={viewerRef2}></div>
             <div className="controls2">
-              <h3>Viewer Controls</h3>
               <label>
                 Style:
                 <select
@@ -377,16 +364,7 @@ function Compare() {
                   <option value="sphere">Sphere</option>
                 </select>
               </label>
-              <label>
-                Background Color:
-                <input
-                  type="color"
-                  value={backgroundColor2}
-                  onChange={(e) => setBackgroundColor2(e.target.value)}
-                />
-              </label>
             </div>
-            <div className="viewer_3Dmoljs" ref={viewerRef2}></div>
           </div>
 
           <div className="properties">

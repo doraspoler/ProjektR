@@ -9,7 +9,6 @@ function MoleculeView() {
   const { searchOption: firstSearchOption, chemCompound } = useParams();
   const viewerRef = useRef(null);
   const [style, setStyle] = useState("stick"); // Default stil = stick
-  const [backgroundColor, setBackgroundColor] = useState("#FFFFFF"); //Default background bijel
   const [moleculeData, setMoleculeData] = useState(null); // Store molecule data
   const navigate = useNavigate();
 
@@ -68,9 +67,7 @@ function MoleculeView() {
 
         console.log("Inicijaliziram viewer");
         const viewer = window.$3Dmol.createViewer(viewerRef.current, {
-          defaultcolors: window.$3Dmol.rasmolElementColors,
-          backgroundColor,
-        });
+          defaultcolors: window.$3Dmol.rasmolElementColors});
 
         const cid = computed_properties.cid;
 
@@ -105,7 +102,7 @@ function MoleculeView() {
       }
     };
     load3Dmol();
-  }, [moleculeData, style, backgroundColor]); //+spinEnabled, spinSpeed,
+  }, [moleculeData, style]); //+spinEnabled, spinSpeed,
 
   const handleHomepageButtonClick = () => {
     navigate("/");
@@ -119,16 +116,14 @@ function MoleculeView() {
       </button>
       <Add firstSearchOption={firstSearchOption} firstCompound={chemCompound} />
       <div className="molecule-view">
-        <h2>{computed_properties.title}</h2>
+        <div className="title"><h2>{computed_properties.title}</h2></div>
         <div className="search">
           <Search whichComponent="single"></Search>
         </div>
-
         <div className="view-and-properties">
           <div className="viewer-container">
+            <div className="viewer_3Dmoljs" ref={viewerRef}></div>
             <div className="controls">
-              <h3>Viewer Controls</h3>
-
               <label>
                 Style:
                 <select
@@ -139,16 +134,7 @@ function MoleculeView() {
                   <option value="sphere">Sphere</option>
                 </select>
               </label>
-              <label>
-                Background Color:
-                <input
-                  type="color"
-                  value={backgroundColor}
-                  onChange={(e) => setBackgroundColor(e.target.value)}
-                />
-              </label>
             </div>
-            <div className="viewer_3Dmoljs" ref={viewerRef}></div>
           </div>
 
           <div className="properties">

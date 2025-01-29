@@ -11,6 +11,7 @@
     color: rgba(59, 49, 61, 0.9);
 
     display: flex;
+    flex-direction: column;
     flex-wrap:wrap;
 
     align-items: center;
@@ -105,16 +106,6 @@
   }
 
   .controls {
-
-    background-color: hsl(60, 41%, 89%);
-    border: 3px rgb(120, 56, 107) solid;
-    border-radius: 5%;
-    display: flex;
-    flex-direction: column;
-    max-height: 80%;
-    max-width: 80%;
-    font-size: 100;
-    padding: 1em;
     height:fit-content;
     width: fit-content;
   }
