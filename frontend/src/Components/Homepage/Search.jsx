@@ -12,11 +12,18 @@ function Search(props) {
   const secondSearchOption = params.secondSearchOption;
 
   const patterns = {
-    name: "^[a-zA-Z0-9\\s\\-(),\\.·'/\\+]+$", 
-    smiles: "^([^J][0-9BCOHNSOPrIFla@+\-\[\]\(\)\\\/%=#$]{6,})$/ig", 
-    inchi: "^InChI\=1S?\/[A-Za-z0-9\.]+(\+[0-9]+)?(\/[cnpqbtmsih][A-Za-z0-9\-\+\(\)\,\/\?\;\.]+)*$", 
+    name: ".*", 
+    smiles: ".*", 
+    inchi: "^InChI=1.*", 
     cid: "^[0-9]+$", 
   };
+
+  const searchPrompts = {
+    name: "Enter chemical compound name", 
+    smiles: "Enter chemical structure in SMILES format",
+    inchi: "Enter chemical structure in InChI format",
+    cid: "Enter PubChem compound ID",
+  }
 
   useEffect(() => {
     if (props.whichComponent === "single") {
@@ -83,7 +90,7 @@ function Search(props) {
           id="search-input"
           value={chemCompound}
           onChange={handleCompoundChange}
-          placeholder={`Enter chemical compound ${searchOption}`}
+          placeholder={searchPrompts[searchOption]}
           pattern={patterns[searchOption]} 
           required 
         />

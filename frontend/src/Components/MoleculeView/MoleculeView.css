@@ -1,12 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 .molecule-view {
     background-color: rgba(255, 255, 255, 0.85);
     border: 1px solid rgba(59, 49, 61, 0.718);
     border-radius: 10px;
-    padding: 2em;
-    width: 80vw;
+    padding: 1em 1em;
+    width: fit-content;
+    max-width: 90vw;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     margin: 2em auto;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Roboto', serif;
     text-align: center;
     color: rgba(59, 49, 61, 0.9);
 
@@ -16,7 +20,7 @@
 
     align-items: center;
     align-content: center;
-    justify-content: center;
+    justify-content: baseline;
 
     overflow-y: auto;
     overflow-x: auto;
@@ -30,7 +34,6 @@
     color: rgba(59, 49, 61, 0.718);
   }
   
-
   .molecule-view ul {
     list-style-type: none;
     padding: 0;
@@ -106,8 +109,40 @@
   }
 
   .controls {
-    height:fit-content;
-    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .controls label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .controls select {
+    height: 5vh !important;
+    width: 100px;
+    text-align: center;
+    color: #fff;
+    background-color:rgba(59, 49, 61, 0.718);
+    border-radius: 5px;
+    font-family: 'Roboto', serif;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  
+  .controls select:hover {
+    border-color: #e1e5e9;
+  }
+  
+  .controls select:focus {
+    outline: none;
+    border-color: #e1e5e9;
+    box-shadow: 0 0 5px rgba(31, 32, 33, 0.5);
   }
 
   .properties {
@@ -128,8 +163,6 @@
     top: 1em;
 }
 
-
-
 .view-and-properties{
   display: flex;
   flex-direction: row;
@@ -137,9 +170,10 @@
 
 .tox21-properties-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 stupca */
-  gap: 15px; /* Razmak između stavki */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 15px; 
   margin-top: 20px;
+  font: black;
 }
 
 .tox21-property {
@@ -167,23 +201,23 @@
 }
 
 .checkbox.checked {
-  background-color: #4CAF50; /* Zelena pozadina za kvačicu */
+  background-color: #4CAF50; 
 }
 
 .checkbox.checked::before {
-  content: "✔"; /* Kvačica */
+  content: "✔"; 
   color: white;
   font-size: 14px;
 }
 
 .homepage-button {
   position:absolute;
-  top: 10px; /* Malo udaljen od gornjeg ruba */
-  left: 10px; /* Malo udaljen od lijevog ruba */
-  z-index: 1000; /* Pobrinite se da gumb bude ispred drugih elemenata */
-  background-color: transparent; /* Pozadina gumba */
-  border: none; /* Uklonite okvir */
-  cursor: pointer; /* Pokazuje da je klikabilno */
+  top: 10px; 
+  left: 10px; 
+  z-index: 1000; 
+  background-color: transparent; 
+  border: none; 
+  cursor: pointer; 
   height: 60px;
   width: 60px;
   border: black solid 1px;
@@ -191,8 +225,17 @@
 }
 
 .homepage-button img {
-  width: 40px; /* Veličina slike */
-  height: 40px; /* Veličina slike */
+  width: 40px; 
+  height: 40px; 
   top: 10px;
   left: 10px;
+}
+
+
+@media screen and (max-width: 900px) {
+
+  .view-and-properties{
+    display: flex;
+    flex-direction: column;
+  }
 }

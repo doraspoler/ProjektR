@@ -12,6 +12,8 @@ function Compare() {
   const secondCompound = params.secondCompound;
   const firstSearchOption = params.firstSearchOption;
   const secondSearchOption = params.secondSearchOption;
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   console.log(
     "First compound: " + firstCompound + ", second compound: " + secondCompound
   );
@@ -45,6 +47,7 @@ function Compare() {
   useEffect(() => {
     const fetchFirstMoleculeData = async () => {
       //dohvaćanje prve molekule
+      setLoading1(true);
       const apiUrl = `http://localhost:5000/search`;
       try {
         const requestBody = {
@@ -69,6 +72,8 @@ function Compare() {
       } catch (error) {
         console.error("Error fetching molecule data:", error);
         setFirstMoleculeData(null);
+      } finally {
+        setLoading1(false);
       }
     };
 
@@ -78,6 +83,7 @@ function Compare() {
   useEffect(() => {
     const fetchSecondMoleculeData = async () => {
       //dohvaćanje druge molekule
+      setLoading2(true);
       const apiUrl = `http://localhost:5000/search`;
       try {
         const requestBody = {
@@ -102,6 +108,8 @@ function Compare() {
       } catch (error) {
         console.error("Error fetching molecule data:", error);
         setSecondMoleculeData(null);
+      } finally {
+        setLoading2(false);
       }
     };
 
@@ -202,10 +210,10 @@ function Compare() {
   return (
     <>
       <button className="homepage-button" onClick={handleHomepageButtonClick}>
-        <img src="../../../../public/molecule.png" alt=""></img>
+        <img src="../../../../molecule.png" alt=""></img>
       </button>
       <div className="compare-container">
-        <div className="molecule-view" id="1">
+        <div className="molecule-view" id="molecule-view1">
           <button
             className="x-button"
             onClick={() => handleRemove(firstCompound)}
@@ -215,12 +223,15 @@ function Compare() {
           <div className="search">
             <Search whichComponent="first"></Search>
           </div>
-          <h2>{computed_properties1.title}</h2>
+          {loading1 === true && <h2>Fetching chemical compound data...</h2>}
+          {loading1 === false && computed_properties1.title !== undefined && <h2>{computed_properties1.title}</h2>}
+          {loading1 === false && computed_properties1.title === undefined && <h2>Chemical compound not found!</h2>}          
+          {loading1 === false && !(computed_properties1.cid === null || computed_properties1.cid === undefined) &&
+          <div className="view-and-properties1">
           <div className="viewer-container1">
             <div className="viewer_3Dmoljs" ref={viewerRef1}></div>
             <div className="controls1">
               <label>
-                Style:
                 <select
                   value={style1}
                   onChange={(e) => setStyle1(e.target.value)}
@@ -279,7 +290,7 @@ function Compare() {
               )}
               {computed_properties1.molecularFormula != null && (
                 <li>
-                  <strong>Molecular formula:</strong>
+                  <strong>Molecular Formula:</strong>
                   <span className="property">
                     {computed_properties1.molecularFormula}
                   </span>
@@ -293,7 +304,7 @@ function Compare() {
               )}
               {computed_properties1.exactMass != null && (
                 <li>
-                  <strong>Exact mass:</strong>
+                  <strong>Exact Mass:</strong>
                   <span className="property">
                     {computed_properties1.exactMass + " Da"}
                   </span>
@@ -301,7 +312,7 @@ function Compare() {
               )}
               {computed_properties1.molecularWeight != null && (
                 <li>
-                  <strong>Molecular weight:</strong>
+                  <strong>Molecular Weight:</strong>
                   <span className="property">
                     {computed_properties1.molecularWeight + " g/mol"}
                   </span>
@@ -339,8 +350,11 @@ function Compare() {
             </div>
           </div>
         </div>
+        }
+        </div>
+            
 
-        <div className="molecule-view" id="2">
+        <div className="molecule-view" id="molecule-view2">
           <button
             className="x-button"
             onClick={() => handleRemove(secondCompound)}
@@ -350,12 +364,15 @@ function Compare() {
           <div className="search">
             <Search whichComponent="second"></Search>
           </div>
-          <h2>{computed_properties2.title}</h2>
+          {loading2 === true && <h2>Fetching chemical compound data...</h2>}
+          {loading2 === false && computed_properties2.title !== undefined && <h2>{computed_properties2.title}</h2>}
+          {loading2 === false && computed_properties2.title === undefined && <h2>Chemical compound not found!</h2>}
+          {loading2 === false && !(computed_properties2.cid === null || computed_properties2.cid === undefined) &&
+          <div className="view-and-properties2">
           <div className="viewer-container2">
             <div className="viewer_3Dmoljs" ref={viewerRef2}></div>
             <div className="controls2">
               <label>
-                Style:
                 <select
                   value={style2}
                   onChange={(e) => setStyle2(e.target.value)}
@@ -414,7 +431,7 @@ function Compare() {
               )}
               {computed_properties2.molecularFormula != null && (
                 <li>
-                  <strong>Molecular formula:</strong>
+                  <strong>Molecular Formula:</strong>
                   <span className="property">
                     {computed_properties2.molecularFormula}
                   </span>
@@ -428,7 +445,7 @@ function Compare() {
               )}
               {computed_properties2.exactMass != null && (
                 <li>
-                  <strong>Exact mass:</strong>
+                  <strong>Exact Mass:</strong>
                   <span className="property">
                     {computed_properties2.exactMass + " Da"}
                   </span>
@@ -436,7 +453,7 @@ function Compare() {
               )}
               {computed_properties2.molecularWeight != null && (
                 <li>
-                  <strong>Molecular weight:</strong>
+                  <strong>Molecular Weight:</strong>
                   <span className="property">
                     {computed_properties2.molecularWeight + " g/mol"}
                   </span>
@@ -473,6 +490,8 @@ function Compare() {
               ))}
             </div>
           </div>
+          </div>
+          }
         </div>
       </div>
     </>
