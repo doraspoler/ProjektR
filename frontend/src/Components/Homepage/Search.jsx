@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function Search(props) {
   const [chemCompound, setChemCompound] = useState("");
-  const [searchOption, setSearchOption] = useState("name"); // Default search option
+  const [searchOption, setSearchOption] = useState("name"); 
   const [firstCompound, setFirstCompound] = useState("");
   const [secondCompound, setSecondCompound] = useState("");
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ function Search(props) {
     console.log("U handleSearch compound: ", chemCompound);
 
     if (props.whichComponent === "single") {
-      navigate(`/molecule/${searchOption}/${encodeURIComponent(chemCompound)}`); // Navigate using the resolved compound title
+      navigate(`/molecule/${searchOption}/${encodeURIComponent(chemCompound)}`); 
     } else if (props.whichComponent === "first") {
       navigate(
         `/compare/${searchOption}/${encodeURIComponent(

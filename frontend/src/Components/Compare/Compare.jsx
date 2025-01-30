@@ -33,20 +33,19 @@ function Compare() {
   };
 
   const viewerRef1 = useRef(null);
-  const [style1, setStyle1] = useState("stick"); // Default stil = stick
+  const [style1, setStyle1] = useState("stick"); 
 
   const viewerRef2 = useRef(null);
-  const [style2, setStyle2] = useState("stick"); // Default stil = stick
+  const [style2, setStyle2] = useState("stick"); 
 
-  const [firstMoleculeData, setFirstMoleculeData] = useState(null); // Store molecule data
-  const [secondMoleculeData, setSecondMoleculeData] = useState(null); // Store molecule data
+  const [firstMoleculeData, setFirstMoleculeData] = useState(null);
+  const [secondMoleculeData, setSecondMoleculeData] = useState(null); 
   const handleHomepageButtonClick = () => {
     navigate("/");
   };
 
   useEffect(() => {
     const fetchFirstMoleculeData = async () => {
-      //dohvaćanje prve molekule
       setLoading1(true);
       const apiUrl = `http://localhost:5000/search`;
       try {
@@ -66,8 +65,6 @@ function Compare() {
           throw new Error("Error fetching data from PubChem API");
         }
         const data1 = await response.json();
-        //console.log("spremam moleculeData u localStorage");
-        //localStorage.setItem("moleculeData", JSON.stringify(data)); // Spremite podatke u localStorage
         setFirstMoleculeData(data1);
       } catch (error) {
         console.error("Error fetching molecule data:", error);
@@ -82,7 +79,6 @@ function Compare() {
 
   useEffect(() => {
     const fetchSecondMoleculeData = async () => {
-      //dohvaćanje druge molekule
       setLoading2(true);
       const apiUrl = `http://localhost:5000/search`;
       try {
@@ -102,8 +98,6 @@ function Compare() {
           throw new Error("Error fetching data from PubChem API");
         }
         const data2 = await response.json();
-        //console.log("spremam moleculeData u localStorage");
-        //localStorage.setItem("moleculeData", JSON.stringify(data)); // Spremite podatke u localStorage
         setSecondMoleculeData(data2);
       } catch (error) {
         console.error("Error fetching molecule data:", error);
@@ -124,7 +118,6 @@ function Compare() {
   const tox21_properties2 = secondMoleculeData?.tox21_properties || {};
 
   useEffect(() => {
-    //dinamicki loadam 3Dmol.js
     const load3Dmol1 = async () => {
       if (viewerRef1.current && firstMoleculeData) {
         if (!window.$3Dmol) {
@@ -140,7 +133,6 @@ function Compare() {
         const cid1 = computed_properties1.cid;
 
         try {
-          // Fetch molecular data for the CID
           const response = await fetch(
             `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${cid1}/SDF?record_type=2d`
           );
@@ -151,7 +143,7 @@ function Compare() {
             );
           }
 
-          const sdfData1 = await response.text(); // Get SDF data as text
+          const sdfData1 = await response.text(); 
           viewer1.addModel(sdfData1, "sdf");
           viewer1.setStyle({}, { [style1]: {} });
           viewer1.zoomTo();
@@ -166,7 +158,6 @@ function Compare() {
   }, [firstMoleculeData, style1]);
 
   useEffect(() => {
-    //dinamicki loadam 3Dmol.js
     const load3Dmol2 = async () => {
       if (viewerRef2.current && secondMoleculeData) {
         if (!window.$3Dmol) {
@@ -182,7 +173,6 @@ function Compare() {
         const cid2 = computed_properties2.cid;
 
         try {
-          // Fetch molecular data for the CID
           const response = await fetch(
             `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${cid2}/SDF?record_type=2d`
           );
@@ -193,7 +183,7 @@ function Compare() {
             );
           }
 
-          const sdfData2 = await response.text(); // Get SDF data as text
+          const sdfData2 = await response.text(); 
           viewer2.addModel(sdfData2, "sdf");
           viewer2.setStyle({}, { [style2]: {} });
           viewer2.zoomTo();

@@ -33,7 +33,6 @@ class Tox21Properties(BaseModel):
     class Config:
         populate_by_name = True
         alias_generator = None   
-        allow_population_by_field_name = True
 
 def get_computed_properties(data_computed_properties: dict):
     computed_properties = ComputedProperties(

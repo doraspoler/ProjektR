@@ -6,9 +6,8 @@ function Add({ firstSearchOption, firstCompound }) {
   const [searchVisible, setSearchVisible] = useState(false);
   const [minimizeVisible, setMinimizeVisible] = useState(false);
   const [secondCompound, setSecondCompound] = useState("");
-  const [secondSearchOption, setSecondSearchOption] = useState("name"); // Default search option for second compound
+  const [secondSearchOption, setSecondSearchOption] = useState("name"); 
 
-  // Parametri iz trenutnog URL-a za prvi spoj
   const navigate = useNavigate();
   console.log("first compound u add.jsx: ", firstCompound);
   console.log("first search option: ", firstSearchOption);
@@ -34,7 +33,6 @@ function Add({ firstSearchOption, firstCompound }) {
       return;
     }
 
-    // Navigacija prema URL-u s atributima oba spoja
     navigate(
       `/compare/${firstSearchOption}/${encodeURIComponent(
         firstCompound

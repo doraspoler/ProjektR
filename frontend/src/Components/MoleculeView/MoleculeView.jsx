@@ -8,8 +8,8 @@ import Add from "./Add.jsx";
 function MoleculeView() {
   const { searchOption: firstSearchOption, chemCompound } = useParams();
   const viewerRef = useRef(null);
-  const [style, setStyle] = useState("stick"); // Default stil = stick
-  const [moleculeData, setMoleculeData] = useState(null); // Store molecule data
+  const [style, setStyle] = useState("stick"); 
+  const [moleculeData, setMoleculeData] = useState(null); 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -57,7 +57,6 @@ function MoleculeView() {
   console.log(tox21_properties);
 
   useEffect(() => {
-    //dinamicki loadam 3Dmol.js
     const load3Dmol = async () => {
       if (viewerRef.current && moleculeData?.computed_properties) {
         if (!window.$3Dmol) {
@@ -82,7 +81,7 @@ function MoleculeView() {
             );
           }
 
-          const sdfData = await response.text(); // Get SDF data as text
+          const sdfData = await response.text(); 
           viewer.addModel(sdfData, "sdf");
           viewer.setStyle({}, { [style]: {} });
           viewer.zoomTo();
