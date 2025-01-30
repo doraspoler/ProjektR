@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 .add-button, .minimize-button{
     font-size: 1em;
     font-weight: bold;
@@ -26,8 +29,6 @@
     background-color: rgba(255, 255, 255);
     border-color: rgba(59, 49, 61, 0.718);
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 .search-container {
     margin: 1em 1em 1em 1em;
