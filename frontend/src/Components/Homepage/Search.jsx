@@ -74,7 +74,7 @@ function Search(props) {
   }
 
   return (
-    <form onSubmit={handleSearch}>
+    <form onSubmit={handleSearch} class="form">
       <div className="search-container">
         <select
           id="search-option"
