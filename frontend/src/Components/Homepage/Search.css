@@ -11,12 +11,13 @@
     gap: 5px 5px 5px 5px;
     justify-content: center;
     align-items: center;
+    padding-top: 2em;
   }
   
   .search-container #search-input {
     font-family: 'Roboto', serif;
     width: fit-content;
-    min-width: 300px;
+    min-width: 200px;
     width: 30vw;
     height: 5vh;
     border-radius: 1em;
@@ -27,15 +28,15 @@
   
   .search-container .search-btn {
     background-color: rgba(59, 49, 61, 0.718);
-    color: white;
+    height: 7vh !important;
     width: fit-content;
-    height: 2.5em;
-    padding: 10px 20px;
-    border-radius: 5px;
+    min-width: 80px;
+    text-align: center;
+    color: #fff;
     cursor: pointer;
     text-align: center;
     font-family: 'Roboto', serif;
-    font-size: 1.3em;
+    font-size: 1em;
     font-weight: 700;
     border: 0px;
   }
@@ -53,9 +54,10 @@
   }
 
   #search-option {
-    height: 5vh !important;
-    width: 100px;
+    height: 7vh !important;
+    width: fit-content;
     text-align: center;
+    min-width: 80px;
     color: #fff;
     background-color:rgba(59, 49, 61, 0.718);
     border-radius: 5px;

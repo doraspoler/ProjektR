@@ -10,19 +10,22 @@ function MoleculeView() {
   const viewerRef = useRef(null);
   const [style, setStyle] = useState("stick"); // Default stil = stick
   const [moleculeData, setMoleculeData] = useState(null); // Store molecule data
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Ovo je searchOption:  ", firstSearchOption);
     console.log("Ovo je chemCompound:  ", encodeURIComponent(chemCompound));
+  
     const fetchMoleculeData = async () => {
-      const apiUrl = `http://localhost:5000/search`;
+      setLoading(true);
+      const apiUrl = "http://localhost:5000/search";
       try {
         const requestBody = {
           type: firstSearchOption,
           query: encodeURIComponent(chemCompound),
         };
-
+  
         const response = await fetch(apiUrl, {
           method: "POST",
           headers: {
@@ -30,25 +33,22 @@ function MoleculeView() {
           },
           body: JSON.stringify(requestBody),
         });
-        if (response.status === "404") {
-          alert(
-            "Entered compound " + title + "could not be found in database."
-          );
-        } else if (!response.ok) {
-          throw new Error("Error fetching data from PubChem API");
+  
+        if (!response.ok) {
+          throw new Error("Error fetching data from the server");
         }
         const data = await response.json();
-        //console.log("spremam moleculeData u localStorage");
-        //localStorage.setItem("moleculeData", JSON.stringify(data)); // Spremite podatke u localStorage
         setMoleculeData(data);
       } catch (error) {
         console.error("Error fetching molecule data:", error);
         setMoleculeData(null);
+      } finally {
+        setLoading(false);
       }
     };
-
+  
     fetchMoleculeData();
-  }, [chemCompound]);
+  }, [chemCompound, firstSearchOption, navigate]);
 
   const computed_properties = moleculeData?.computed_properties || {};
   const solubility = moleculeData?.solubility || {};
@@ -72,7 +72,6 @@ function MoleculeView() {
         const cid = computed_properties.cid;
 
         try {
-          // Fetch molecular data for the CID
           const response = await fetch(
             `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${cid}/SDF?record_type=2d`
           );
@@ -87,13 +86,6 @@ function MoleculeView() {
           viewer.addModel(sdfData, "sdf");
           viewer.setStyle({}, { [style]: {} });
           viewer.zoomTo();
-          /*
-          if (spinEnabled) {
-            viewer.spin({ axis: "y", speed: spinSpeed });
-          } else {
-            viewer.spin(false);
-          }
-            */
           viewer.render();
           console.log(`Successfully loaded CID ${cid}`);
         } catch (error) {
@@ -102,13 +94,12 @@ function MoleculeView() {
       }
     };
     load3Dmol();
-  }, [moleculeData, style]); //+spinEnabled, spinSpeed,
+  }, [moleculeData, style]);
 
   const handleHomepageButtonClick = () => {
     navigate("/");
   };
 
-  //treba ubacit object add na returna ali trenutno baca gresku
   return (
     <>
       <button className="homepage-button" onClick={handleHomepageButtonClick}>
@@ -116,10 +107,15 @@ function MoleculeView() {
       </button>
       <Add firstSearchOption={firstSearchOption} firstCompound={chemCompound} />
       <div className="molecule-view">
-        <div className="title"><h2>{computed_properties.title}</h2></div>
         <div className="search">
           <Search whichComponent="single"></Search>
         </div>
+        <div className="title">
+          {loading === true && <h2>Fetching chemical compound data...</h2>}
+          {loading === false && computed_properties.title !== undefined && <h2>{computed_properties.title}</h2>}
+          {loading === false && computed_properties.title === undefined && <h2>Chemical compound not found.</h2>}
+        </div>
+        {loading === false && !(computed_properties.cid === null || computed_properties.cid === undefined) && loading === false &&
         <div className="view-and-properties">
           <div className="viewer-container">
             <div className="viewer_3Dmoljs" ref={viewerRef}></div>
@@ -241,6 +237,7 @@ function MoleculeView() {
             </div>
           </div>
         </div>
+        }
       </div>
     </>
   );

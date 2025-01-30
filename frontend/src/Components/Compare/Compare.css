@@ -1,24 +1,98 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+#root {
+  width: 100vw;
+}
 .compare-container {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr 1fr;
 }
 
 .molecule-view {
     position: relative;
-    width: 92%;
-    max-width: fit-content;
+    box-sizing: border-box;
 }
 
-.molecule-view #1 {
-    grid-row: 1 2;
-    grid-column: 1 2;
+.molecule-view h2 {
+  margin-right: 40px; 
 }
 
-.molecule-view #2 {
-    grid-row: 1 2;
-    grid-column: 2 3;
+.controls1 {
+margin-top: 1em;
+}
+
+.controls1 select {
+height: 5vh !important;
+width: 100px;
+text-align: center;
+color: #fff;
+background-color:rgba(59, 49, 61, 0.718);
+border-radius: 5px;
+font-family: 'Roboto', serif;
+font-size: 1em;
+font-weight: 700;
+cursor: pointer;
+}
+
+.controls1 select:hover {
+border-color: #e1e5e9;
+}
+
+.controls1 select:focus {
+outline: none;
+border-color: #e1e5e9;
+box-shadow: 0 0 5px rgba(31, 32, 33, 0.5);
+}
+
+.controls1 label {
+font-size: 16px;
+font-weight: bold;
+color: #333;
+}
+
+.controls2 {
+margin-top: 1em;
+}
+
+.controls2 select {
+height: 5vh !important;
+width: 100px;
+text-align: center;
+color: #fff;
+background-color:rgba(59, 49, 61, 0.718);
+border-radius: 5px;
+font-family: 'Roboto', serif;
+font-size: 1em;
+font-weight: 700;
+cursor: pointer;
+}
+
+.controls2 select:hover {
+border-color: #e1e5e9;
+}
+
+.controls2 select:focus {
+outline: none;
+border-color: #e1e5e9;
+box-shadow: 0 0 5px rgba(31, 32, 33, 0.5);
+}
+
+.controls2 label {
+font-size: 16px;
+font-weight: bold;
+color: #333;
+}
+
+#molecule-view1 {
+    grid-column: 1;
+    left: 5px;
+    max-width: 49vw;
+}
+
+#molecule-view2 {
+    grid-column: 2;
+    max-width: 49vw;
+    right: 5px;
 }
 
 .molecule-view x-button {
@@ -26,74 +100,11 @@
 }
 
 .molecule-view h2 {
-    margin-right: 40px; 
+    margin-right: 40px;
 }
 
-.controls1 {
-  margin-top: 1em;
-}
 
-.controls1 select {
-  height: 5vh !important;
-  width: 100px;
-  text-align: center;
-  color: #fff;
-  background-color:rgba(59, 49, 61, 0.718);
-  border-radius: 5px;
-  font-family: 'Roboto', serif;
-  font-size: 1em;
-  font-weight: 700;
-  cursor: pointer;
-}
 
-.controls1 select:hover {
-  border-color: #e1e5e9;
-}
-
-.controls1 select:focus {
-  outline: none;
-  border-color: #e1e5e9;
-  box-shadow: 0 0 5px rgba(31, 32, 33, 0.5);
-}
-
-.controls1 label {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-}
-
-.controls2 {
-  margin-top: 1em;
-}
-
-.controls2 select {
-  height: 5vh !important;
-  width: 100px;
-  text-align: center;
-  color: #fff;
-  background-color:rgba(59, 49, 61, 0.718);
-  border-radius: 5px;
-  font-family: 'Roboto', serif;
-  font-size: 1em;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.controls2 select:hover {
-  border-color: #e1e5e9;
-}
-
-.controls2 select:focus {
-  outline: none;
-  border-color: #e1e5e9;
-  box-shadow: 0 0 5px rgba(31, 32, 33, 0.5);
-}
-
-.controls2 label {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-}
 
 .x-button {
     position: absolute;
@@ -145,11 +156,11 @@
   }
   
   .checkbox.checked {
-    background-color: #4CAF50; 
+    background-color: #4CAF50;
   }
   
   .checkbox.checked::before {
-    content: "✔"; 
+    content: "✔";
     color: white;
     font-size: 14px;
   }
@@ -169,8 +180,25 @@
   }
   
   .homepage-button img {
-    width: 40px; 
-    height: 40px; 
+    width: 40px;
+    height: 40px;
     top: 10px;
     left: 10px;
+  }
+
+
+  @media screen and (max-width: 1400px) {
+
+    .molecule-view{
+      width: auto;
+    }
+
+    #molecule-view1{
+      max-width: 50vw;
+    }
+
+    #molecule-view2{
+      max-width: 50vw;
+    }
+
   }
