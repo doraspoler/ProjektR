@@ -1,8 +1,7 @@
-# React + Vite
+# VisiChem
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+VisiChem je web aplikacija razvijena potrebe kolegija Projekt R od strane studenata Borne Svjetličića, Dore Špoler i Milana Vidakovića pod mentorstvom izv. prof. dr. sc. Mihaele Vranić.
+Aplikacija nudi 3D vizualni prikaz traženog kemijskog spoja i relevantna kemijska svojstva. 
+Podatci se vuku iz javne kemijske baze podataka PubChem.
+Osim toga, aplikacija preko prediktivnih modela pokušava predvidjeti topivost spoja u vodi (pri sobnoj temperaturi) te toksičnost na 12 bioloških receptora.
+Modeli su trenirani uz pomoć biblioteke DeepChem na skupovima podataka Delaney (za topivost) i Tox21 (za toksičnost).
